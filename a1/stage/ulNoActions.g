@@ -54,14 +54,17 @@ varDecl: compoundType identifier ';'
 
 statement options {backtrack=true;} : ';'
         | expr ';'
-        | IF '(' expr ')' block ELSE block
-        | IF '(' expr ')' block
+        | ifStatement
         | WHILE '(' expr ')' block
         | PRINT expr ';'
         | PRINTLN expr ';'
         | RETURN expr? ';'
         | identifier '=' expr ';'
         | identifier '[' expr ']' '=' expr ';'
+        ;
+
+ifStatement options {backtrack=true;}:  IF '(' expr ')' block ELSE block
+        | IF '(' expr ')' block
         ;
 
 block: '{' statement* '}'

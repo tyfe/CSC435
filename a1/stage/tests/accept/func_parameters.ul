@@ -1,0 +1,4 @@
+void main(int test1, char test2, boolean[3] test3, string test4, float test5) {
+    int test6;
+    test6 = test1 < test2 * test3 == test4 - test5;
+}

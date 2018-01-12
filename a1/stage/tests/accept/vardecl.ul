@@ -1,0 +1,12 @@
+void main() {
+    int foo1;
+    int[2] foo1;
+    int [2] foo1;
+    int [2]foo1;
+    char ch;
+    char[3] ch;
+    string str;
+    string str;
+    float pi;
+    float[3] pi;
+}

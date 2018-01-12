@@ -1,0 +1,11 @@
+void main() {
+    int s;
+    while(2 < 3) {
+        s = "test";
+        s[0] = "test";
+    }
+    print s;
+    println s;
+    return;
+    return s;
+}
