@@ -1,5 +1,5 @@
 #
-GNAME= ulNoActions
+GNAME= ul
 GSRC= $(GNAME).g
 
 all: grammar compiler

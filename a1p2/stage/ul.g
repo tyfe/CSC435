@@ -1,4 +1,4 @@
-grammar ulNoActions;
+grammar ul;
 				
 @members
 {
