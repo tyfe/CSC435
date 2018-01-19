@@ -1,4 +1,4 @@
 /*/.vscode/*
 /*/setclasspath
 *.class
-/*/stage/.antlr/*
+*/stage/.antlr/*
