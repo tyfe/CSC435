@@ -1,0 +1,5 @@
+void main () {
+  if (n == 3) {
+      print "hello";
+  }
+}
