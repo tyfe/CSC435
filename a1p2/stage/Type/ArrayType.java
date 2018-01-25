@@ -1,10 +1,15 @@
 package Type;
 
+import AST.*;
+
 public class ArrayType extends Type {
-    public ArrayType () {
+
+    public int size;
+
+    public ArrayType (int size) {
     }
     public String toString() {
-            return "??? fix"; // whatever might be printed out in pretty print
+            return "int [" + this.size + "]";
     }
     public boolean equals (Object o) {
             if (o instanceof ArrayType)

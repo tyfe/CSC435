@@ -1,9 +1,12 @@
 package AST;
 
+import AST.Program;
+import java.util.Iterator;
+
 public class PrintVisitor implements Visitor {
   int indentCount;
 
-  PrintVisitor() {
+  public PrintVisitor() {
     indentCount = 0;
   }
 
@@ -55,9 +58,9 @@ public class PrintVisitor implements Visitor {
 
   // }
 
-  // public void visit(Function f) {
-
-  // }
+  public void visit(Function f) {
+    f.fd.accept(this);
+  }
 
   // public void visit(FunctionBody f) {
 
@@ -67,13 +70,13 @@ public class PrintVisitor implements Visitor {
 
   // }
 
-  // public void visit(FunctionDeclaration f) {
+  public void visit(FunctionDeclaration f) {
+    f.name.accept(this);
+  }
 
-  // }
-
-  // public void visit(Identifier i) {
-
-  // }
+  public void visit(Identifier i) {
+    System.out.println(i.name);
+  }
 
   // public void visit(IdentifierValue v) {
 
@@ -108,7 +111,11 @@ public class PrintVisitor implements Visitor {
   // }
 
   public void visit(Program p) {
-    System.out.println("p");
+    Iterator<Function> fl = p.functionList.iterator();
+    while(fl.hasNext()) {
+      Function f = fl.next();
+      f.accept(this);
+    }
   }
 
   // public void visit(ReturnStatement s) {

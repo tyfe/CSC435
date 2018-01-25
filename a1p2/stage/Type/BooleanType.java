@@ -1,5 +1,7 @@
 package Type;
 
+import AST.*;
+
 public class BooleanType extends Type {
     public BooleanType () {
     }

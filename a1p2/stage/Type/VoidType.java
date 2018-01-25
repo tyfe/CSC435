@@ -1,5 +1,7 @@
 package Type;
 
+import AST.*;
+
 public class VoidType extends Type {
     public VoidType () {
     }

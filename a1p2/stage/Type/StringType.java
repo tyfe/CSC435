@@ -1,5 +1,7 @@
 package Type;
 
+import AST.*;
+
 public class StringType extends Type {
     public StringType () {
     }

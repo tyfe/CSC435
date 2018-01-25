@@ -27,15 +27,15 @@ public interface Visitor {
 
   // public void visit(FormalParameter p);
 
-  // public void visit(Function f);
+  public void visit(Function f);
 
   // public void visit(FunctionBody f);
 
   // public void visit(FunctionCall f);
 
-  // public void visit(FunctionDeclaration f);
+  public void visit(FunctionDeclaration f);
 
-  // public void visit(Identifier i);
+  public void visit(Identifier i);
 
   // public void visit(IdentifierValue v);
 
@@ -61,7 +61,7 @@ public interface Visitor {
 
   // public void visit(SubtractExpression e);
 
-  // public void visit(Type t);
+  public void visit(Type t);
 
   // public void visit(TypeNode t);
 

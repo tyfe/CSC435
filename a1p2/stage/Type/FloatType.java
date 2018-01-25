@@ -1,5 +1,7 @@
 package Type;
 
+import AST.*;
+
 public class FloatType extends Type {
     public FloatType () {
     }

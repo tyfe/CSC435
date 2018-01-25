@@ -7,11 +7,15 @@
  */
 
 import org.antlr.runtime.*;
+import org.antlr.runtime.tree.*;
+import AST.*;
 import java.io.*;
 
 public class Compiler {
   public static void main(String[] args) throws Exception {
     ANTLRInputStream input;
+    PrintVisitor v = new PrintVisitor();
+    Program p = null;
 
     if (args.length == 0) {
       System.out.println("Usage: Test filename.ul");
@@ -27,7 +31,7 @@ public class Compiler {
     ulParser parser = new ulParser(tokens);
 
     try {
-      parser.program();
+      p = parser.program();
     } catch (RecognitionException e) {
       // A lexical or parsing error occured.
       // ANTLR will have already printed information on the
@@ -36,6 +40,11 @@ public class Compiler {
     } catch (Exception e) {
       System.out.println(e);
       e.printStackTrace();
+      return;
     }
+
+    v.visit(p);
+  
   }
+
 }

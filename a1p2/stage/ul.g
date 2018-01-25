@@ -33,18 +33,20 @@ public void recoverFromMismatchedSet (IntStream input,
  * formalParameters - change functionBody to include variable declarations and statements
  */
 
-program
-	returns[Program p]
+program returns[Program p]
 	@init {
 	p = new Program();
   }: (f = function {p.addElement(f);})+ EOF;
 
 function returns[Function f]
-  : fd=functionDecl fb=functionBody
-  { f = new Function($fd, $fb); }
+  : fd=functionDecl fb=functionBody 
+  { f = new Function(fd, fb); }
   ;
 
-functionDecl: compoundType identifier '(' formalParameters ')';
+functionDecl returns[FunctionDeclaration fd]: ct=compoundType i=identifier '(' formalParameters ')' 
+	{ 
+		fd = new FunctionDeclaration(i); 
+	};
 
 formalParameters: compoundType identifier moreFormals* |;
 
@@ -100,11 +102,32 @@ atom:
 	| '(' expr ')'
 	| identifier '[' expr ']';
 
-functionBody: '{' varDecl* statement* '}';
+functionBody returns[FunctionBody fb]: '{' varDecl* statement* '}' { fb = null; };
 
-identifier: ID;
+identifier returns[Identifier i]: id=ID { i = new Identifier($id.text); };
 
-compoundType: type | type '[' INTEGERCONSTANT ']';
+//TYPE: 'int' | 'float' | 'char' | 'string' | 'boolean' | 'void';
+compoundType returns[Type type]: t = TYPE
+	{
+		String token = $t.text;
+		if (token == "int") {
+			type = new IntegerType();
+		} else if (token == "float") {
+			type = new FloatType();
+		} else if (token == "char") {
+			type = new CharType();
+		} else if (token == "string") {
+			type = new StringType();
+		} else if (token == "boolean") {
+			type = new BooleanType();
+		} else if (token == "void") {
+			type = new VoidType();
+		}
+	}
+	|  t = TYPE '[' size = INTEGERCONSTANT ']' 
+	{
+		type = new ArrayType(Integer.parseInt($size.text));
+	};
 
 literal:
 	STRINGCONSTANT
@@ -113,8 +136,6 @@ literal:
 	| CHARCONSTANT
 	| 'true'
 	| 'false';
-
-type: TYPE;
 
 /* Lexer */
 
