@@ -7,7 +7,9 @@ public class ArrayType extends Type {
     public int size;
 
     public ArrayType (int size) {
+        this.size = size;
     }
+    
     public String toString() {
             return "int [" + this.size + "]";
     }

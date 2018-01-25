@@ -43,20 +43,24 @@ function returns[Function f]
   { f = new Function(fd, fb); }
   ;
 
-functionDecl returns[FunctionDeclaration fd]: ct=compoundType i=identifier '(' formalParameters ')' 
+functionDecl returns[FunctionDeclaration fd]: tn=compoundType i=identifier '(' fp=formalParameters ')' 
 	{ 
-		fd = new FunctionDeclaration(i); 
+		fd = new FunctionDeclaration(tn, i, fp); 
 	};
 
-formalParameters: compoundType identifier moreFormals* |;
+formalParameters returns[FormalParameterList fpl] @init { fpl = new FormalParameterList(); }:
+	tn=compoundType i=identifier { fpl.addElement(new FormalParameter(tn, i)); } 
+	(mf=moreFormals { fpl.addElement(mf); })* 
+	|
+	;
 
-moreFormals: ',' compoundType identifier;
+moreFormals returns[FormalParameter fp]: ',' tn=compoundType i=identifier { fp = new FormalParameter(tn, i); };
 
-varDecl: compoundType identifier ';';
+varDecl returns[VariableDeclaration v]: tn=compoundType i=identifier ';' { v = new VariableDeclaration(tn, i); };
 
-statement options {
+statement returns[Statement s] options {
 	backtrack = true;
-}:
+} @init{ s = null; }:
 	';'
 	| expr ';'
 	| ifStatement
@@ -89,9 +93,13 @@ pmExprPrime:
 
 mulExpr: atom mulExprPrime;
 
-mulExprPrime: | '*' atom mulExprPrime;
+mulExprPrime: 
+	| '*' atom mulExprPrime
+	;
 
-exprList: expr exprMore* |;
+exprList: expr exprMore* 
+	|
+	;
 
 exprMore: ',' expr;
 
@@ -102,31 +110,22 @@ atom:
 	| '(' expr ')'
 	| identifier '[' expr ']';
 
-functionBody returns[FunctionBody fb]: '{' varDecl* statement* '}' { fb = null; };
+functionBody returns[FunctionBody fb] 
+	@init { 
+		VariableDeclarationList vl = new VariableDeclarationList();
+		StatementList sl = new StatementList();
+	 }:
+	 '{' (v = varDecl { vl.addElement(v); })*  (s = statement { sl.addElement(s); })* '}' { fb = new FunctionBody(vl, sl); };
 
 identifier returns[Identifier i]: id=ID { i = new Identifier($id.text); };
 
-//TYPE: 'int' | 'float' | 'char' | 'string' | 'boolean' | 'void';
-compoundType returns[Type type]: t = TYPE
+compoundType returns[TypeNode tn]: t = TYPE
 	{
-		String token = $t.text;
-		if (token == "int") {
-			type = new IntegerType();
-		} else if (token == "float") {
-			type = new FloatType();
-		} else if (token == "char") {
-			type = new CharType();
-		} else if (token == "string") {
-			type = new StringType();
-		} else if (token == "boolean") {
-			type = new BooleanType();
-		} else if (token == "void") {
-			type = new VoidType();
-		}
+		tn = new TypeNode($t.text);
 	}
 	|  t = TYPE '[' size = INTEGERCONSTANT ']' 
 	{
-		type = new ArrayType(Integer.parseInt($size.text));
+		tn = new TypeNode(Integer.parseInt($size.text));
 	};
 
 literal:
