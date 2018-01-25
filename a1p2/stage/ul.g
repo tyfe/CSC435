@@ -36,13 +36,12 @@ public void recoverFromMismatchedSet (IntStream input,
 program
 	returns[Program p]
 	@init {
-    p = new Program();
+	p = new Program();
   }: (f = function {p.addElement(f);})+ EOF;
 
-function
-  returns[Function f]
+function returns[Function f]
   : fd=functionDecl fb=functionBody
-  { f = new Function(fd, fb) }
+  { f = new Function($fd, $fb); }
   ;
 
 functionDecl: compoundType identifier '(' formalParameters ')';
@@ -64,7 +63,7 @@ statement options {
 	| PRINTLN expr ';'
 	| RETURN expr? ';'
 	| identifier '=' expr ';'
-	| identifier '[' expr ']' '=' expr ';';;
+	| identifier '[' expr ']' '=' expr ';';
 
 ifStatement options {
 	backtrack = true;
@@ -84,7 +83,7 @@ pmExpr: mulExpr pmExprPrime;
 
 pmExprPrime:
 	| '+' mulExpr pmExprPrime
-	| '-' mulExpr pmExprPrime;;
+	| '-' mulExpr pmExprPrime;
 
 mulExpr: atom mulExprPrime;
 
@@ -99,7 +98,7 @@ atom:
 	| identifier
 	| identifier '(' exprList ')'
 	| '(' expr ')'
-	| identifier '[' expr ']';;
+	| identifier '[' expr ']';
 
 functionBody: '{' varDecl* statement* '}';
 
@@ -113,7 +112,7 @@ literal:
 	| FLOATCONSTANT
 	| CHARCONSTANT
 	| 'true'
-	| 'false';;
+	| 'false';
 
 type: TYPE;
 
@@ -133,21 +132,14 @@ RETURN: 'return';
 
 TYPE: 'int' | 'float' | 'char' | 'string' | 'boolean' | 'void';
 
-ID: ('a' ..'z' | 'A' .. 'Z' | '_') (
-		'a' ..'z'
-		| 'A' .. 'Z'
-		| '0' .. '9'
-		| '_'
-	)*;;
+ID: ('a' ..'z' | 'A' .. 'Z' | '_') ('a' ..'z'| 'A' .. 'Z'| '0' .. '9'| '_')*;
 
 INTEGERCONSTANT: ('0' .. '9')+;
 
 // for simplicity, only accept alphanumeric characters, simple punctuation, and space
-STRINGCONSTANT:
-	'"' ('a' ..'z' | 'A' .. 'Z' | '0' .. '9' | '(' .. '.' | ' ')* '"';;
+STRINGCONSTANT: '"' ('a' ..'z' | 'A' .. 'Z' | '0' .. '9' | '(' .. '.' | ' ')* '"';
 
-CHARCONSTANT:
-	'\'' ('a' ..'z' | 'A' .. 'Z' | '0' .. '9' | ' ') '\'';;
+CHARCONSTANT: '\'' ('a' ..'z' | 'A' .. 'Z' | '0' .. '9' | ' ') '\'';
 
 FLOATCONSTANT: ('0' .. '9')+ '.' ('0' .. '9')+;
 
@@ -156,5 +148,4 @@ FLOATCONSTANT: ('0' .. '9')+ '.' ('0' .. '9')+;
  */
 WS: ( '\t' | ' ' | ('\r' | '\n'))+ { $channel = HIDDEN;};
 
-COMMENT:
-	'//' ~('\r' | '\n')* ('\r' | '\n') { $channel = HIDDEN;};;
+COMMENT: '//' ~('\r' | '\n')* ('\r' | '\n') { $channel = HIDDEN;};

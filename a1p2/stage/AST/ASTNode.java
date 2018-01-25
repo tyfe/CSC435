@@ -1,11 +1,9 @@
 package AST;
 
+import AST.Visitor;
+
 public class ASTNode {
   public ASTNode() {
 
-  }
-
-  public void accept() {
-    v.visit(this);
   }
 }
