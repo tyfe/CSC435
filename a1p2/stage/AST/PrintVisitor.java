@@ -17,9 +17,11 @@ public class PrintVisitor implements Visitor {
     }
   }
 
-  // public void visit(AddExpression e) {
-
-  // }
+  public void visit(AddExpression e) {
+    e.expr1.accept(this);
+    System.out.print(" + ");
+    e.expr2.accept(this);
+  }
 
   // public void visit(ArrayType a) {
 
@@ -37,29 +39,31 @@ public class PrintVisitor implements Visitor {
 
   // }
 
-  // public void visit(BooleanLiteral b) {
+  public void visit(BooleanLiteral b) {
+    System.out.print(b.val);
+  }
 
-  // }
-
-  // public void visit(CharacterLiteral c) {
-
-  // }
+  public void visit(CharacterLiteral c) {
+    System.out.print(c.val);
+  }
 
   // public void visit(DoStatement s) {
 
   // }
 
-  // public void visit(EqualityExpression e) {
+  public void visit(EqualityExpression e) {
+    e.expr1.accept(this);
+    System.out.print(" == ");
+    e.expr2.accept(this);
+  }
 
-  // }
+  public void visit(ExpressionStatement e) {
+    e.expr.accept(this);
+  }
 
-  // public void visit(ExpressionStatement e) {
-
-  // }
-
-  // public void visit(FloatLiteral f) {
-
-  // }
+  public void visit(FloatLiteral f) {
+    System.out.print(f.val);
+  }
 
   public void visit(FormalParameter p) {
     p.type.accept(this);
@@ -76,7 +80,7 @@ public class PrintVisitor implements Visitor {
     VariableDeclarationList vl = f.varList;
     StatementList sl = f.statementList;
     Iterator<VariableDeclaration> vlIter = vl.variableDeclarationList.iterator();
-    // Iterator<Statement> slIter = sl.statementList.iterator();
+    Iterator<Statement> slIter = sl.statementList.iterator();
 
     indentCount += 4;
     System.out.println("{");
@@ -88,11 +92,12 @@ public class PrintVisitor implements Visitor {
         vd.accept(this);
       }
 
-      // while(slIter.hasNext()) {
-      //   Statement s = slIter.next();
-      //   this.printTab();
-      //   s.accept(this);
-      // }
+      while(slIter.hasNext()) {
+        Statement s = slIter.next();
+        this.printTab();
+        s.accept(this);
+        System.out.println(";");
+      }
     }
 
     System.out.println("}");
@@ -129,29 +134,35 @@ public class PrintVisitor implements Visitor {
     System.out.print(i.name);
   }
 
-  // public void visit(IdentifierValue v) {
-
-  // }
+  public void visit(IdentifierValue v) {
+    v.name.accept(this);
+  }
 
   // public void visit(IfStatement i) {
 
   // }
 
-  // public void visit(IntegerLiteral i) {
+  public void visit(IntegerLiteral i) {
+    System.out.print(i.val);
+  }
 
-  // }
+  public void visit(LessThanExpression e) {
+    e.expr1.accept(this);
+    System.out.print(" < ");
+    e.expr2.accept(this);
+  }
 
-  // public void visit(LessThanExpression e) {
+  public void visit(MultExpression e) {
+    e.expr1.accept(this);
+    System.out.print(" * ");
+    e.expr2.accept(this);
+  }
 
-  // }
-
-  // public void visit(MultExpression e) {
-
-  // }
-
-  // public void visit(ParenExpression p) {
-
-  // }
+  public void visit(ParenExpression p) {
+    System.out.print("(");
+    p.expr.accept(this);
+    System.out.print(")");
+  }
 
   // public void visit(PrintLnStatement s) {
 
@@ -173,13 +184,15 @@ public class PrintVisitor implements Visitor {
 
   // }
 
-  // public void visit(StringLiteral s) {
+  public void visit(StringLiteral s) {
+    System.out.print(s.val);
+  }
 
-  // }
-
-  // public void visit(SubtractExpression e) {
-
-  // }
+  public void visit(SubtractExpression e) {
+    e.expr1.accept(this);
+    System.out.print(" - ");
+    e.expr2.accept(this);
+  }
 
   public void visit(Type t) {
     System.out.print(t);

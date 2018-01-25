@@ -2,7 +2,7 @@ package AST;
 
 import AST.*;
 
-public class FormalParameter {
+public class FormalParameter extends ASTNode {
 
   TypeNode type;
   Identifier name;

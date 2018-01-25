@@ -60,9 +60,9 @@ varDecl returns[VariableDeclaration v]: tn=compoundType i=identifier ';' { v = n
 
 statement returns[Statement s] options {
 	backtrack = true;
-} @init{ s = null; }:
+}:
 	';'
-	| expr ';'
+	| e=expr ';' { return new ExpressionStatement(e); }
 	| ifStatement
 	| WHILE '(' expr ')' block
 	| PRINT expr ';'
@@ -77,25 +77,28 @@ ifStatement options {
 
 block: '{' statement* '}';
 
-expr: lessExpr exprPrime;
+expr returns[Expression e]
+	@init{ Expression it = null; }
+	@after{ e = it; }: 
+	e1=lessExpr { it = e1; } ('==' e2=lessExpr { it = new EqualityExpression(it,e2); })*;
 
-exprPrime: | '==' lessExpr exprPrime;
+lessExpr returns[Expression e]
+	@init{ Expression it = null; }
+	@after{ e = it; }: e1=pmExpr { it = e1; } ('<' e2=pmExpr { it = new LessThanExpression(it, e2); })*;
 
-lessExpr: pmExpr lessExprPrime;
+pmExpr returns[Expression e]
+	@init{ Expression it = null; }
+	@after{ e = it; }: e1=mulExpr { it = e1; } (op=('+'|'-') e2=mulExpr {
+		if ($op.text.charAt(0) == '+') {
+			it = new AddExpression(it, e2);
+		} else if ($op.text.charAt(0) == '-') {
+			it = new SubtractExpression(it, e2);
+		}
+	})*;
 
-lessExprPrime: | '<' pmExpr lessExprPrime;
-
-pmExpr: mulExpr pmExprPrime;
-
-pmExprPrime:
-	| '+' mulExpr pmExprPrime
-	| '-' mulExpr pmExprPrime;
-
-mulExpr: atom mulExprPrime;
-
-mulExprPrime: 
-	| '*' atom mulExprPrime
-	;
+mulExpr returns[Expression e]
+	@init{ Expression it = null; }
+	@after{ e = it; }: e1=atom { it = e1; } ('*' e2=atom { it = new MultExpression(it, e2); })*;
 
 exprList: expr exprMore* 
 	|
@@ -103,11 +106,11 @@ exprList: expr exprMore*
 
 exprMore: ',' expr;
 
-atom:
-	literal
-	| identifier
+atom returns[Expression e] @init{ e = null; }:
+	l=literal { e = l; }
+	| id=identifier { e = new IdentifierValue(id); }
 	| identifier '(' exprList ')'
-	| '(' expr ')'
+	| '(' expression=expr ')' {e = new ParenExpression(expression); }
 	| identifier '[' expr ']';
 
 functionBody returns[FunctionBody fb] 
@@ -128,13 +131,13 @@ compoundType returns[TypeNode tn]: t = TYPE
 		tn = new TypeNode(Integer.parseInt($size.text));
 	};
 
-literal:
-	STRINGCONSTANT
-	| INTEGERCONSTANT
-	| FLOATCONSTANT
-	| CHARCONSTANT
-	| 'true'
-	| 'false';
+literal returns[Expression e]:
+	t=STRINGCONSTANT { e = new StringLiteral($t.text); }
+	| t=INTEGERCONSTANT { e = new IntegerLiteral(Integer.parseInt($t.text)); }
+	| t=FLOATCONSTANT { e = new FloatLiteral(Float.parseFloat($t.text)); }
+	| t=CHARCONSTANT { e = new CharacterLiteral($t.text.charAt(0)); }
+	| 'true' { e = new BooleanLiteral(true); }
+	| 'false' { e = new BooleanLiteral(false); };
 
 /* Lexer */
 

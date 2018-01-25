@@ -3,7 +3,7 @@ package AST;
 import Type.*;
 
 public interface Visitor {
-  // public void visit(AddExpression e);
+  public void visit(AddExpression e);
 
   // public void visit(ArrayType a);
 
@@ -13,17 +13,17 @@ public interface Visitor {
 
   // public void visit(Block b);
 
-  // public void visit(BooleanLiteral b);
+  public void visit(BooleanLiteral b);
 
-  // public void visit(CharacterLiteral c);
+  public void visit(CharacterLiteral c);
 
   // public void visit(DoStatement s);
 
-  // public void visit(EqualityExpression e);
+  public void visit(EqualityExpression e);
 
-  // public void visit(ExpressionStatement e);
+  public void visit(ExpressionStatement e);
 
-  // public void visit(FloatLiteral f);
+  public void visit(FloatLiteral f);
 
   // public void visit(FormalParameter p);
 
@@ -37,17 +37,17 @@ public interface Visitor {
 
   public void visit(Identifier i);
 
-  // public void visit(IdentifierValue v);
+  public void visit(IdentifierValue v);
 
   // public void visit(IfStatement i);
 
-  // public void visit(IntegerLiteral i);
+  public void visit(IntegerLiteral i);
 
-  // public void visit(LessThanExpression e);
+  public void visit(LessThanExpression e);
 
-  // public void visit(MultExpression e);
+  public void visit(MultExpression e);
 
-  // public void visit(ParenExpression p);
+  public void visit(ParenExpression p);
 
   // public void visit(PrintLnStatement s);
 
@@ -57,9 +57,9 @@ public interface Visitor {
 
   // public void visit(ReturnStatement s);
 
-  // public void visit(StringLiteral s);
+  public void visit(StringLiteral s);
 
-  // public void visit(SubtractExpression e);
+  public void visit(SubtractExpression e);
 
   public void visit(Type t);
 
