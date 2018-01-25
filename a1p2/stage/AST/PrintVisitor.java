@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 public class PrintVisitor implements Visitor {
   int indentCount;
+  final int spaceInc = 2;
 
   public PrintVisitor() {
     indentCount = 0;
@@ -27,17 +28,32 @@ public class PrintVisitor implements Visitor {
 
   // }
 
-  // public void visit(ArrayAssignment s) {
+  public void visit(ArrayAssignment s) {
+    s.name.accept(this);
+    System.out.print("[");
+    s.index.accept(this);
+    System.out.print("] = ");
+    s.expr.accept(this);
+    System.out.println(";");
+  }
 
-  // }
+  public void visit(ArrayReference a) {
+    a.name.accept(this);
+    System.out.print("[");
+    a.expr.accept(this);
+    System.out.print("]");
+  }
 
-  // public void visit(ArrayReference a) {
+  public void visit(Block b) {
+    StatementList sl = b.statementList;
 
-  // }
+    for(int i = 0; i < sl.size(); ++i) {
+      Statement s = sl.elementAt(i);
+      this.printTab();
+      s.accept(this);
+    }
 
-  // public void visit(Block b) {
-
-  // }
+  }
 
   public void visit(BooleanLiteral b) {
     System.out.print(b.val);
@@ -47,10 +63,6 @@ public class PrintVisitor implements Visitor {
     System.out.print(c.val);
   }
 
-  // public void visit(DoStatement s) {
-
-  // }
-
   public void visit(EqualityExpression e) {
     e.expr1.accept(this);
     System.out.print(" == ");
@@ -59,6 +71,7 @@ public class PrintVisitor implements Visitor {
 
   public void visit(ExpressionStatement e) {
     e.expr.accept(this);
+    System.out.println(";");
   }
 
   public void visit(FloatLiteral f) {
@@ -82,10 +95,10 @@ public class PrintVisitor implements Visitor {
     Iterator<VariableDeclaration> vlIter = vl.variableDeclarationList.iterator();
     Iterator<Statement> slIter = sl.statementList.iterator();
 
-    indentCount += 4;
+    indentCount += spaceInc;
     System.out.println("{");
 
-    if(vl.size() != 0 && sl.size() != 0) {
+    if(vl.size() != 0 || sl.size() != 0) {
       while(vlIter.hasNext()) {
         VariableDeclaration vd = vlIter.next();
         this.printTab();
@@ -96,17 +109,30 @@ public class PrintVisitor implements Visitor {
         Statement s = slIter.next();
         this.printTab();
         s.accept(this);
-        System.out.println(";");
       }
     }
 
     System.out.println("}");
-    indentCount -= 4;
+    indentCount -= spaceInc;
   }
 
-  // public void visit(FunctionCall f) {
+  public void visit(FunctionCall f) {
+    ExpressionList el = f.expressionList;
 
-  // }
+    f.name.accept(this);
+    System.out.print("(");
+
+    for(int i = 0; i < el.size() - 1; ++i) {
+      Expression e = el.elementAt(i);
+      e.accept(this);
+      System.out.print(", ");
+    }
+
+    Expression e = el.elementAt(el.size() - 1);
+    e.accept(this);
+    System.out.print(")");
+
+  }
 
   public void visit(FunctionDeclaration f) {
     Iterator<FormalParameter> fpl = f.parameterList.parameterList.iterator();
@@ -138,9 +164,33 @@ public class PrintVisitor implements Visitor {
     v.name.accept(this);
   }
 
-  // public void visit(IfStatement i) {
+  public void visit(IfStatement i) {
+    System.out.print("if (");
+    i.expr.accept(this);
 
-  // }
+    System.out.println(") {");
+    this.indentCount += spaceInc;
+
+    i.block1.accept(this);
+    
+    this.indentCount -= spaceInc;
+    this.printTab();
+    System.out.print("}");
+
+    if(i.block2 == null) {
+      System.out.println();
+    } else {
+      System.out.println(" else {");
+      
+      this.indentCount += spaceInc;
+      i.block2.accept(this);
+
+      this.indentCount -= spaceInc;
+      this.printTab();
+      System.out.println("}");
+    }
+
+  }
 
   public void visit(IntegerLiteral i) {
     System.out.print(i.val);
@@ -164,13 +214,17 @@ public class PrintVisitor implements Visitor {
     System.out.print(")");
   }
 
-  // public void visit(PrintLnStatement s) {
+  public void visit(PrintLnStatement s) {
+    System.out.print("println ");
+    s.expr.accept(this);
+    System.out.println(";");
+  }
 
-  // }
-
-  // public void visit(PrintStatement s) {
-
-  // }
+  public void visit(PrintStatement s) {
+    System.out.print("print ");
+    s.expr.accept(this);
+    System.out.println(";");
+  }
 
   public void visit(Program p) {
     Iterator<Function> fl = p.functionList.iterator();
@@ -180,9 +234,14 @@ public class PrintVisitor implements Visitor {
     }
   }
 
-  // public void visit(ReturnStatement s) {
-
-  // }
+  public void visit(ReturnStatement s) {
+    System.out.print("return");
+    if(s.expr != null) {
+      System.out.print(" ");
+      s.expr.accept(this);
+    }
+    System.out.println(";");
+  }
 
   public void visit(StringLiteral s) {
     System.out.print(s.val);
@@ -202,9 +261,12 @@ public class PrintVisitor implements Visitor {
     t.type.accept(this);
   }
 
-  // public void visit(VariableAssignment s) {
-
-  // }
+  public void visit(VariableAssignment s) {
+    s.name.accept(this);
+    System.out.print(" = ");
+    s.expr.accept(this);
+    System.out.println(";");
+  }
 
   public void visit(VariableDeclaration v) {
     v.type.accept(this);
@@ -213,8 +275,17 @@ public class PrintVisitor implements Visitor {
     System.out.println(";");
   }
 
-  // public void visit(WhileStatement s) {
+  public void visit(WhileStatement s) {
+    System.out.print("while (");
+    s.expr.accept(this);
+    System.out.println(") {");
 
-  // }
+    this.indentCount += spaceInc;
+    s.block.accept(this);
+    this.indentCount -= spaceInc;
+
+    this.printTab();
+    System.out.println("}");
+  }
 
 }
