@@ -5,48 +5,40 @@ grammar ul;
 }
 
 @members {
-protected void mismatch (IntStream input, int ttype, BitSet follow)
-        throws RecognitionException
-{
-        throw new MismatchedTokenException(ttype, input);
-}
-public void recoverFromMismatchedSet (IntStream input,
-                                      RecognitionException e,
-                                      BitSet follow)
-        throws RecognitionException
-{
-        reportError(e);
-        throw e;
-}
+	protected void mismatch (IntStream input, int ttype, BitSet follow)
+					throws RecognitionException
+	{
+					throw new MismatchedTokenException(ttype, input);
+	}
+	public void recoverFromMismatchedSet (IntStream input,
+																				RecognitionException e,
+																				BitSet follow)
+					throws RecognitionException
+	{
+		reportError(e);
+		throw e;
+	}
 }
 
 @rulecatch {
-        catch (RecognitionException ex) {
-                reportError(ex);
-                throw ex;
-        }
+	catch (RecognitionException ex) {
+		reportError(ex);
+		throw ex;
+	}
 }
-
-/*
- * This is a subset of the ulGrammar to show you how to make new production rules. You will need to:
- * - change type to be compoundType and include appropriate productions - introduce optional
- * formalParameters - change functionBody to include variable declarations and statements
- */
 
 program returns[Program p]
 	@init {
-	p = new Program();
-  }: (f = function {p.addElement(f);})+ EOF;
+		p = new Program();
+  }: (f = function {p.addElement(f);})+ EOF
+	;
 
-function returns[Function f]
-  : fd=functionDecl fb=functionBody 
-  { f = new Function(fd, fb); }
+function returns[Function f]: 
+	fd=functionDecl fb=functionBody { f = new Function(fd, fb); }
   ;
 
-functionDecl returns[FunctionDeclaration fd]: tn=compoundType i=identifier '(' fp=formalParameters ')' 
-	{ 
-		fd = new FunctionDeclaration(tn, i, fp); 
-	};
+functionDecl returns[FunctionDeclaration fd]: 
+	tn=compoundType i=identifier '(' fp=formalParameters ')' { fd = new FunctionDeclaration(tn, i, fp); };
 
 formalParameters returns[FormalParameterList fpl] @init { fpl = new FormalParameterList(); }:
 	tn=compoundType i=identifier { fpl.addElement(new FormalParameter(tn, i)); } 
@@ -82,7 +74,7 @@ ifStatement returns[Statement s] options {
 block returns[Block b]
 	@init{ StatementList sl = new StatementList(); }
 	@after{ b = new Block(sl); }:
-	'{' (s=statement { sl.addElement(s); })* '}';
+	'{' (s=statement { if (s != null) sl.addElement(s); })* '}';
 
 expr returns[Expression e]
 	@init{ Expression it = null; }
@@ -136,14 +128,14 @@ compoundType returns[TypeNode tn]: t = TYPE
 	}
 	|  t = TYPE '[' size = INTEGERCONSTANT ']' 
 	{
-		tn = new TypeNode(Integer.parseInt($size.text));
+		tn = new TypeNode($t.text, Integer.parseInt($size.text));
 	};
 
 literal returns[Expression e]:
-	t=STRINGCONSTANT { e = new StringLiteral($t.text); }
+	t=STRINGCONSTANT { e = new StringLiteral($t.text.substring(1, $t.text.length() - 1)); }
 	| t=INTEGERCONSTANT { e = new IntegerLiteral(Integer.parseInt($t.text)); }
 	| t=FLOATCONSTANT { e = new FloatLiteral(Float.parseFloat($t.text)); }
-	| t=CHARCONSTANT { e = new CharacterLiteral($t.text.charAt(0)); }
+	| t=CHARCONSTANT { e = new CharacterLiteral($t.text.charAt(1)); }
 	| 'true' { e = new BooleanLiteral(true); }
 	| 'false' { e = new BooleanLiteral(false); };
 

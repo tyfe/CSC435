@@ -5,13 +5,15 @@ import AST.*;
 public class ArrayType extends Type {
 
     public int size;
+    public Type subType;
 
-    public ArrayType (int size) {
+    public ArrayType (int size, Type t) {
         this.size = size;
+        subType = t;
     }
     
     public String toString() {
-            return "int [" + this.size + "]";
+            return subType + " [" + this.size + "]";
     }
     public boolean equals (Object o) {
             if (o instanceof ArrayType)

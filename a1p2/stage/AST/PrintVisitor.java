@@ -60,7 +60,9 @@ public class PrintVisitor implements Visitor {
   }
 
   public void visit(CharacterLiteral c) {
+    System.out.print("'");
     System.out.print(c.val);
+    System.out.print("'");
   }
 
   public void visit(EqualityExpression e) {
@@ -244,7 +246,7 @@ public class PrintVisitor implements Visitor {
   }
 
   public void visit(StringLiteral s) {
-    System.out.print(s.val);
+    System.out.print("\"" + s.val + "\"");
   }
 
   public void visit(SubtractExpression e) {

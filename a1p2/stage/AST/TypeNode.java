@@ -23,8 +23,22 @@ public class TypeNode extends ASTNode {
         }
     }
 
-    public TypeNode(int size) {
-        type = new ArrayType(size);
+    public TypeNode(String token, int size) {
+        Type t;
+        if (token.equals("int") ) {
+			t = new IntegerType();
+		} else if (token.equals("float")) {
+			t = new FloatType();
+		} else if (token.equals("char")) {
+			t = new CharType();
+		} else if (token.equals("string")) {
+			t = new StringType();
+		} else if (token.equals("boolean")) {
+			t = new BooleanType();
+		} else {
+			t = new VoidType();
+        }
+        type = new ArrayType(size, t);
     }
 
     public void accept(PrintVisitor v) {
