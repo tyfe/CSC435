@@ -6,7 +6,7 @@ public class Program {
   public Vector<Function> functionList;
 
   public Program() {
-    functionList = new Vector();
+    functionList = new Vector<Function>();
   }
 
   public void addElement(Function f) {
