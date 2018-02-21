@@ -227,11 +227,11 @@ public class PrintVisitor implements Visitor {
   }
 
   public void visit(Program p) {
-    Iterator<Function> fl = p.functionList.iterator();
-    while(fl.hasNext()) {
-      Function f = fl.next();
-      f.accept(this);
-    }
+    // Iterator<Function> fl = p.functionList.iterator();
+    // while(fl.hasNext()) {
+    //   Function f = fl.next();
+    //   f.accept(this);
+    // }
   }
 
   public void visit(ReturnStatement s) {

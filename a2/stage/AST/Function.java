@@ -5,6 +5,7 @@ import AST.FormalParameterList;
 import AST.FunctionBody;
 import AST.FunctionDeclaration;
 import AST.PrintVisitor;
+import Semantic.*;
 
 public class Function extends ASTNode {
 
@@ -21,4 +22,7 @@ public class Function extends ASTNode {
         v.visit(this);
     }
 
+    public void accept(TypeChecker t) throws SemanticException {
+        t.visit(this);
+    }
 }

@@ -9,12 +9,16 @@
 import org.antlr.runtime.*;
 import org.antlr.runtime.tree.*;
 import AST.*;
+import Semantic.*;
 import java.io.*;
 
 public class Compiler {
   public static void main(String[] args) throws Exception {
     ANTLRInputStream input;
-    PrintVisitor v = new PrintVisitor();
+
+    // use compiler flags to determine what visitor to use?
+    // PrintVisitor v = new PrintVisitor();
+    TypeChecker t = new TypeChecker();
     Program p = null;
 
     if (args.length == 0) {
@@ -44,7 +48,12 @@ public class Compiler {
       return;
     }
 
-    v.visit(p);
+    try {
+      t.visit(p);
+    } catch (SemanticException e) {
+      System.out.println(e);
+    }
+    
   
   }
 

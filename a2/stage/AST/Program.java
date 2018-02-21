@@ -1,9 +1,10 @@
 package AST;
 
 import java.util.Vector;
+import Semantic.*;
 
 public class Program {
-  public Vector<Function> functionList;
+  private Vector<Function> functionList;
 
   public Program() {
     functionList = new Vector<Function>();
@@ -23,5 +24,9 @@ public class Program {
 
   public void accept(PrintVisitor v) {
     v.visit(this);
+  }
+
+  public void accept(TypeChecker t) throws SemanticException {
+    t.visit(this);
   }
 }
