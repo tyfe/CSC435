@@ -2,6 +2,7 @@ package AST;
 
 import java.util.Vector;
 import AST.*;
+import Type.*;
 
 public class VariableDeclarationList extends ASTNode {
   public Vector<VariableDeclaration> variableDeclarationList;

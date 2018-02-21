@@ -8,7 +8,8 @@ public class TypeNode extends ASTNode {
     
     public Type type;
 
-    public TypeNode(String token) {
+    public TypeNode(int l, int o, String token) {
+		super(l, o);
         if (token.equals("int") ) {
 			type = new IntegerType();
 		} else if (token.equals("float")) {
@@ -24,7 +25,8 @@ public class TypeNode extends ASTNode {
         }
     }
 
-    public TypeNode(String token, int size) {
+    public TypeNode(int l, int o, String token, int size) {
+		super(l, o);
         Type t;
         if (token.equals("int") ) {
 			t = new IntegerType();
@@ -46,8 +48,8 @@ public class TypeNode extends ASTNode {
         v.visit(this);
 	}
 	
-	public void accept(TypeChecker t) throws SemanticException {
-		t.visit(this);
+	public Type accept(TypeChecker t) throws SemanticException {
+		return t.visit(this);
 	}
 
 }

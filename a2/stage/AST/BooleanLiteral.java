@@ -2,11 +2,13 @@ package AST;
 
 import AST.*;
 import Semantic.*;
+import Type.*;
 
 public class BooleanLiteral extends Expression {
 	Boolean val;
 
-	public BooleanLiteral (Boolean v) {
+	public BooleanLiteral (int l, int o, Boolean v) {
+		super(l, o);
 		val = v;
 	}
 
@@ -14,7 +16,7 @@ public class BooleanLiteral extends Expression {
 		v.visit(this);
 	}
 
-	public void accept(TypeChecker t) throws SemanticException {
-    t.visit(this);
+	public Type accept(TypeChecker t) throws SemanticException {
+    return t.visit(this);
   }
 }

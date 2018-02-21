@@ -2,12 +2,14 @@ package AST;
 
 import AST.ASTNode;
 import Semantic.*;
+import Type.*;
 
 public class Identifier extends ASTNode {
     
     public String name;
 
-    public Identifier(String s) {
+    public Identifier(int l, int o, String s) {
+        super(l, o);
         name = s;
     }
 
@@ -15,8 +17,8 @@ public class Identifier extends ASTNode {
         v.visit(this);
     }
 
-    public void accept(TypeChecker t) throws SemanticException {
-        t.visit(this);
+    public Type accept(TypeChecker t) throws SemanticException {
+        return t.visit(this);
     }
 
 }

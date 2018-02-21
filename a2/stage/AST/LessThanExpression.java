@@ -2,13 +2,15 @@ package AST;
 
 import AST.*;
 import Semantic.*;
+import Type.*;
 
 public class LessThanExpression extends Expression {
 
   Expression expr1;
   Expression expr2;
 
-  public LessThanExpression(Expression e1, Expression e2) {
+  public LessThanExpression(int l, int o, Expression e1, Expression e2) {
+    super(l, o);
     expr1 = e1;
     expr2 = e2;
   }
@@ -17,7 +19,7 @@ public class LessThanExpression extends Expression {
     v.visit(this);
   }
 
-  public void accept(TypeChecker t) throws SemanticException {
-    t.visit(this);
+  public Type accept(TypeChecker t) throws SemanticException {
+    return t.visit(this);
   }
 }

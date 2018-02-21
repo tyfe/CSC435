@@ -2,13 +2,15 @@ package AST;
 
 import AST.*;
 import Semantic.*;
+import Type.*;
 
 public class WhileStatement extends Statement {
 
   public Expression expr;
   public Block block;
 
-  public WhileStatement(Expression e, Block b) {
+  public WhileStatement(int l, int o, Expression e, Block b) {
+    super(l, o);
     expr = e;
     block = b;
   }
@@ -17,7 +19,7 @@ public class WhileStatement extends Statement {
     v.visit(this);
   }
 
-  public void accept(TypeChecker t) throws SemanticException {
-    t.visit(this);
+  public Type accept(TypeChecker t) throws SemanticException {
+    return t.visit(this);
   }
 }

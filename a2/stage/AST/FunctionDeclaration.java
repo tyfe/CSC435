@@ -2,6 +2,7 @@ package AST;
 
 import AST.ASTNode;
 import Semantic.*;
+import Type.*;
 
 public class FunctionDeclaration extends ASTNode {
     
@@ -9,7 +10,8 @@ public class FunctionDeclaration extends ASTNode {
     public TypeNode type;
     public FormalParameterList parameterList;
 
-    public FunctionDeclaration(TypeNode t, Identifier i, FormalParameterList fpl) {
+    public FunctionDeclaration(int l, int o, TypeNode t, Identifier i, FormalParameterList fpl) {
+        super(l, o);
         name = i;
         type = t;
         parameterList = fpl;
@@ -19,8 +21,8 @@ public class FunctionDeclaration extends ASTNode {
         v.visit(this);
     }
 
-    public void accept(TypeChecker t) throws SemanticException {
-        t.visit(this);
+    public Type accept(TypeChecker t) throws SemanticException {
+        return t.visit(this);
     }
 
 }

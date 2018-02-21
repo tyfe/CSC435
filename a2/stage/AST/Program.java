@@ -2,11 +2,13 @@ package AST;
 
 import java.util.Vector;
 import Semantic.*;
+import Type.*;
 
-public class Program {
+public class Program extends ASTNode {
   private Vector<Function> functionList;
 
-  public Program() {
+  public Program(int l, int o) {
+    super(l, o);
     functionList = new Vector<Function>();
   }
 
@@ -26,7 +28,7 @@ public class Program {
     v.visit(this);
   }
 
-  public void accept(TypeChecker t) throws SemanticException {
-    t.visit(this);
+  public Type accept(TypeChecker t) throws SemanticException {
+    return t.visit(this);
   }
 }

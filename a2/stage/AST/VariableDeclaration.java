@@ -2,13 +2,15 @@ package AST;
 
 import AST.*;
 import Semantic.*;
+import Type.*;
 
-public class VariableDeclaration {
+public class VariableDeclaration extends ASTNode {
 
   public Identifier name;
   public TypeNode type;
 
-  public VariableDeclaration(TypeNode tn, Identifier i) {
+  public VariableDeclaration(int l, int o, TypeNode tn, Identifier i) {
+    super(l, o);
     type = tn;
     name = i;
   }
@@ -17,8 +19,8 @@ public class VariableDeclaration {
     v.visit(this);
   }
 
-  public void accept(TypeChecker t) throws SemanticException {
-    t.visit(this);
+  public Type accept(TypeChecker t) throws SemanticException {
+    return t.visit(this);
   }
 
 }

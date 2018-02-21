@@ -2,12 +2,14 @@ package AST;
 
 import AST.ASTNode;
 import Semantic.*;
+import Type.*;
 
 public class Block extends ASTNode {
 
   public StatementList statementList;
 
-  public Block(StatementList sl) {
+  public Block(int l, int o, StatementList sl) {
+    super(l, o);
     statementList = sl;
   }
 
@@ -15,7 +17,7 @@ public class Block extends ASTNode {
     v.visit(this);
   }
 
-  public void accept(TypeChecker t) throws SemanticException {
-    t.visit(this);
+  public Type accept(TypeChecker t) throws SemanticException {
+    return t.visit(this);
   }
 }

@@ -1,6 +1,7 @@
 package Type;
 
 import AST.*;
+import Semantic.*;
 
 public class ArrayType extends Type {
 
@@ -24,5 +25,9 @@ public class ArrayType extends Type {
 
     public void accept (Visitor v) {
             v.visit(this);
+    }
+
+    public Type accept(TypeChecker t) throws SemanticException {
+        return t.visit(this);
     }
 }

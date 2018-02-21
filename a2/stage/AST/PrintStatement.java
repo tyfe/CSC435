@@ -2,12 +2,14 @@ package AST;
 
 import AST.*;
 import Semantic.*;
+import Type.*;
 
 public class PrintStatement extends Statement {
 
   Expression expr;
 
-  public PrintStatement(Expression e) {
+  public PrintStatement(int l, int o, Expression e) {
+    super(l, o);
     expr = e;
   }
 
@@ -15,7 +17,7 @@ public class PrintStatement extends Statement {
     v.visit(this);
   }
 
-  public void accept(TypeChecker t) throws SemanticException {
-    t.visit(this);
+  public Type accept(TypeChecker t) throws SemanticException {
+    return t.visit(this);
   }
 }

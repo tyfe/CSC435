@@ -2,11 +2,13 @@ package AST;
 
 import AST.*;
 import Semantic.*;
+import Type.*;
 
 public class FloatLiteral extends Expression {
 	Float val;
 
-	public FloatLiteral (Float v) {
+	public FloatLiteral (int l, int o, Float v) {
+		super(l, o);
 		val = v;
 	}
 
@@ -14,7 +16,7 @@ public class FloatLiteral extends Expression {
 		v.visit(this);
 	}
 
-	public void accept(TypeChecker t) throws SemanticException {
-    t.visit(this);
+	public Type accept(TypeChecker t) throws SemanticException {
+    return t.visit(this);
   }
 }

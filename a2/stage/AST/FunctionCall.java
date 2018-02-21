@@ -1,6 +1,7 @@
 package AST;
 
 import AST.*;
+import Type.*;
 import Semantic.*;
 
 public class FunctionCall extends Expression {
@@ -8,7 +9,8 @@ public class FunctionCall extends Expression {
   public Identifier name;
   public ExpressionList expressionList;
 
-  public FunctionCall(Identifier id, ExpressionList el) {
+  public FunctionCall(int l, int o, Identifier id, ExpressionList el) {
+    super(l, o);
     name = id;
     expressionList = el;
   }
@@ -17,7 +19,7 @@ public class FunctionCall extends Expression {
     v.visit(this);
   }
 
-  public void accept(TypeChecker t) throws SemanticException {
-    t.visit(this);
+  public Type accept(TypeChecker t) throws SemanticException {
+    return t.visit(this);
   }
 }

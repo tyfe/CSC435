@@ -2,13 +2,15 @@ package AST;
 
 import AST.*;
 import Semantic.*;
+import Type.*;
 
 public class FormalParameter extends ASTNode {
 
   TypeNode type;
   Identifier name;
 
-  public FormalParameter(TypeNode tn, Identifier i) {
+  public FormalParameter(int l, int o, TypeNode tn, Identifier i) {
+    super(l, o);
     type = tn;
     name = i;
   }
@@ -17,7 +19,7 @@ public class FormalParameter extends ASTNode {
     v.visit(this);
   }
 
-  public void accept(TypeChecker t) throws SemanticException {
-    t.visit(this);
+  public Type accept(TypeChecker t) throws SemanticException {
+    return t.visit(this);
   }
 }

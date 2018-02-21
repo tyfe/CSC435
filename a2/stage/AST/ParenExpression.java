@@ -2,12 +2,14 @@ package AST;
 
 import AST.ASTNode;
 import Semantic.*;
+import Type.*;
 
 public class ParenExpression extends Expression {
     
     public Expression expr;
 
-    public ParenExpression(Expression e) {
+    public ParenExpression(int l, int o, Expression e) {
+        super(l, o);
         expr = e;
     }
 
@@ -15,8 +17,8 @@ public class ParenExpression extends Expression {
         v.visit(this);
     }
 
-    public void accept(TypeChecker t) throws SemanticException {
-        t.visit(this);
-      }
+    public Type accept(TypeChecker t) throws SemanticException {
+        return t.visit(this);
+    }
 
 }

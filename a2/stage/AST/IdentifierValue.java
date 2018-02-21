@@ -2,12 +2,14 @@ package AST;
 
 import AST.ASTNode;
 import Semantic.*;
+import Type.*;
 
 public class IdentifierValue extends Expression {
     
     public Identifier name;
 
-    public IdentifierValue(Identifier i) {
+    public IdentifierValue(int l, int o, Identifier i) {
+        super(l, o);
         name = i;
     }
 
@@ -15,7 +17,7 @@ public class IdentifierValue extends Expression {
         v.visit(this);
     }
 
-    public void accept(TypeChecker t) throws SemanticException {
-        t.visit(this);
+    public Type accept(TypeChecker t) throws SemanticException {
+        return t.visit(this);
     }
 }

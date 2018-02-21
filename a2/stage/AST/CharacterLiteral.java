@@ -2,11 +2,13 @@ package AST;
 
 import AST.*;
 import Semantic.*;
+import Type.*;
 
 public class CharacterLiteral extends Expression {
 	Character val;
 
-	public CharacterLiteral (Character v) {
+	public CharacterLiteral (int l, int o, Character v) {
+		super(l, o);
 		val = v;
 	}
 
@@ -14,7 +16,7 @@ public class CharacterLiteral extends Expression {
 		v.visit(this);
 	}
 
-	public void accept(TypeChecker t) throws SemanticException {
-    t.visit(this);
+	public Type accept(TypeChecker t) throws SemanticException {
+    return t.visit(this);
   }
 }

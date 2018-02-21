@@ -2,6 +2,7 @@ package AST;
 
 import AST.*;
 import Semantic.*;
+import Type.*;
 
 public class ArrayAssignment extends Statement {
 
@@ -9,7 +10,8 @@ public class ArrayAssignment extends Statement {
   public Expression index;
   public Expression expr;
 
-  public ArrayAssignment(Identifier i, Expression idx, Expression e) {
+  public ArrayAssignment(int l, int o, Identifier i, Expression idx, Expression e) {
+    super(l, o);
     name = i;
     index = idx;
     expr = e;
@@ -19,7 +21,7 @@ public class ArrayAssignment extends Statement {
     v.visit(this);
   }
 
-  public void accept(TypeChecker t) throws SemanticException {
-    t.visit(this);
+  public Type accept(TypeChecker t) throws SemanticException {
+    return t.visit(this);
   }
 }
