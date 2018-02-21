@@ -23,6 +23,6 @@ public class FunctionEnvironment {
   }
 
   public boolean contains() {
-    
+    return false;
   }
 }

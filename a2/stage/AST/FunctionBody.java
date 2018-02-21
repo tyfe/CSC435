@@ -6,8 +6,8 @@ import Semantic.*;
 
 public class FunctionBody extends ASTNode {
 
-  StatementList statementList;
-  VariableDeclarationList varList;
+  public StatementList statementList;
+  public VariableDeclarationList varList;
 
   public FunctionBody(VariableDeclarationList vl, StatementList sl) {
     varList = vl;

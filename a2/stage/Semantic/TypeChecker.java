@@ -12,7 +12,8 @@ public class TypeChecker {
   private VariableEnvironment ve;
 
   // internal state parameters
-  private boolean inInit = true;
+  String current_id;
+  Type current_type;
 
   public TypeChecker() {
     fe = new FunctionEnvironment();
@@ -66,11 +67,22 @@ public class TypeChecker {
   }
 
 	public void visit (Function f) throws SemanticException {
+    ve = new VariableEnvironment();
     f.fb.accept(this);
   }
 
 	public void visit (FunctionBody f) throws SemanticException {
-    f.vl.accept(this);
+    for(int i = 0; i < f.varList.size(); ++i) {
+      VariableDeclaration vd = f.varList.elementAt(i);
+      VariableType var;
+      vd.accept(this);
+      var = new VariableType(current_id, current_type);
+      System.out.println(current_id);
+      if(ve.contains(var)) {
+        throw new SemanticException("Duplicate variable identifier: " + var.id, 0, 0);
+      }
+      ve.add(var);
+    }
   }
 
 	public void visit (FunctionCall f) throws SemanticException {
@@ -82,7 +94,7 @@ public class TypeChecker {
   }
 
 	public void visit (Identifier i) throws SemanticException {
-    // return i.name;
+    this.current_id = i.name;
   }
 
 	public void visit (IdentifierValue v) throws SemanticException {
@@ -156,7 +168,7 @@ public class TypeChecker {
 
     // visit the bodies of all the functions
     for(int i = 0; i < p.size(); ++i) {
-      Function f = p.elementAt(i);
+      Function f = p.elementAt(i); 
       f.accept(this);
     }
 
@@ -179,7 +191,7 @@ public class TypeChecker {
   }
 
 	public void visit (TypeNode t) throws SemanticException {
-    
+    current_type = t.type;
   }
 
 	public void visit (VariableAssignment s) throws SemanticException {
@@ -187,7 +199,8 @@ public class TypeChecker {
   }
 
 	public void visit (VariableDeclaration v) throws SemanticException {
-    
+    v.name.accept(this);
+    v.type.accept(this);
   }
 
 	public void visit (WhileStatement s) throws SemanticException {
