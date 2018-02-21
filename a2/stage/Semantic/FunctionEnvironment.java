@@ -21,4 +21,8 @@ public class FunctionEnvironment {
   public FunctionType elementAt(int index) {
     return flist.get(index);
   }
+
+  public boolean contains() {
+    
+  }
 }

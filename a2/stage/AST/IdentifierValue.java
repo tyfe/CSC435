@@ -1,6 +1,7 @@
 package AST;
 
 import AST.ASTNode;
+import Semantic.*;
 
 public class IdentifierValue extends Expression {
     
@@ -14,4 +15,7 @@ public class IdentifierValue extends Expression {
         v.visit(this);
     }
 
+    public void accept(TypeChecker t) throws SemanticException {
+        t.visit(this);
+    }
 }

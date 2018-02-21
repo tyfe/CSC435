@@ -1,6 +1,7 @@
 package AST;
 
 import AST.*;
+import Semantic.*;
 
 public class IfStatement extends Statement {
 
@@ -22,5 +23,9 @@ public class IfStatement extends Statement {
 
   public void accept(PrintVisitor v) {
     v.visit(this);
+  }
+
+  public void accept(TypeChecker t) throws SemanticException {
+    t.visit(this);
   }
 }

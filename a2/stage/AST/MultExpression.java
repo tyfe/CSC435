@@ -1,6 +1,7 @@
 package AST;
 
 import AST.*;
+import Semantic.*;
 
 public class MultExpression extends Expression {
 
@@ -14,5 +15,9 @@ public class MultExpression extends Expression {
 
   public void accept(PrintVisitor v) {
     v.visit(this);
+  }
+
+  public void accept(TypeChecker t) throws SemanticException {
+    t.visit(this);
   }
 }

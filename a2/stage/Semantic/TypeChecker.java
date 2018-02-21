@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class TypeChecker {
 
   private FunctionEnvironment fe;
+  private VariableEnvironment ve;
 
   // internal state parameters
   private boolean inInit = true;
@@ -17,62 +18,63 @@ public class TypeChecker {
     fe = new FunctionEnvironment();
   }
 
-  public Type visit (AddExpression e) throws SemanticException {
-    return new IntegerType();
+  public void visit (AddExpression e) throws SemanticException {
+    
   }
 
-	public Type visit (ArrayType a) throws SemanticException {
-    return new IntegerType();
+	public void visit (ArrayType a) throws SemanticException {
+    
   }
 
-	public Type visit (ArrayAssignment s) throws SemanticException {
-    return new IntegerType();
+	public void visit (ArrayAssignment s) throws SemanticException {
+    
   }
 
-	public Type visit (ArrayReference a) throws SemanticException {
-    return new IntegerType();
+	public void visit (ArrayReference a) throws SemanticException {
+    
   }
 
-	public Type visit (Block b) throws SemanticException {
-    return new IntegerType();
+	public void visit (Block b) throws SemanticException {
+    
   }
 
-	public Type visit (BooleanLiteral b) throws SemanticException {
-    return new IntegerType();
+	public void visit (BooleanLiteral b) throws SemanticException {
+    
   }
 
-	public Type visit (CharacterLiteral c) throws SemanticException {
-    return new IntegerType();
+	public void visit (CharacterLiteral c) throws SemanticException {
+    
   }
 
-	// public Type visit (DoStatement s) throws SemanticException {
+	// public void visit (DoStatement s) throws SemanticException {
   // }
 
-	public Type visit (EqualityExpression e) throws SemanticException {
-    return new IntegerType();
+	public void visit (EqualityExpression e) throws SemanticException {
+    
   }
 
-	public Type visit (ExpressionStatement e) throws SemanticException {
-    return new IntegerType();
+	public void visit (ExpressionStatement e) throws SemanticException {
+    
   }
 
-	public Type visit (FloatLiteral f) throws SemanticException {
-    return new IntegerType();
+	public void visit (FloatLiteral f) throws SemanticException {
+    
   }
 
-	public Type visit (FormalParameter p) throws SemanticException {
-    return new IntegerType();
+	public void visit (FormalParameter p) throws SemanticException {
+    
   }
 
 	public void visit (Function f) throws SemanticException {
+    f.fb.accept(this);
   }
 
-	public Type visit (FunctionBody f) throws SemanticException {
-    return new IntegerType();
+	public void visit (FunctionBody f) throws SemanticException {
+    f.vl.accept(this);
   }
 
-	public Type visit (FunctionCall f) throws SemanticException {
-    return new IntegerType();
+	public void visit (FunctionCall f) throws SemanticException {
+    
   }
 
 	public void visit (FunctionDeclaration f) throws SemanticException {
@@ -83,36 +85,36 @@ public class TypeChecker {
     // return i.name;
   }
 
-	public Type visit (IdentifierValue v) throws SemanticException {
-    return new IntegerType();
+	public void visit (IdentifierValue v) throws SemanticException {
+    
   }
 
-	public Type visit (IfStatement i) throws SemanticException {
-    return new IntegerType();
+	public void visit (IfStatement i) throws SemanticException {
+    
   }
 
-	public Type visit (IntegerLiteral i) throws SemanticException {
-    return new IntegerType();
+	public void visit (IntegerLiteral i) throws SemanticException {
+    
   }
 
-	public Type visit (LessThanExpression e) throws SemanticException {
-    return new IntegerType();
+	public void visit (LessThanExpression e) throws SemanticException {
+    
   }
 
-	public Type visit (MultExpression e) throws SemanticException {
-    return new IntegerType();
+	public void visit (MultExpression e) throws SemanticException {
+    
   }
 
-	public Type visit (ParenExpression p) throws SemanticException {
-    return new IntegerType();
+	public void visit (ParenExpression p) throws SemanticException {
+    
   }
 
-	public Type visit (PrintLnStatement s) throws SemanticException {
-    return new IntegerType();
+	public void visit (PrintLnStatement s) throws SemanticException {
+    
   }
 
-	public Type visit (PrintStatement s) throws SemanticException {
-    return new IntegerType();
+	public void visit (PrintStatement s) throws SemanticException {
+    
   }
 
 	public void visit (Program p) throws SemanticException {
@@ -152,38 +154,44 @@ public class TypeChecker {
       throw new SemanticException("Program contains no main function.", 0, 0);
     }
 
+    // visit the bodies of all the functions
+    for(int i = 0; i < p.size(); ++i) {
+      Function f = p.elementAt(i);
+      f.accept(this);
+    }
+
   }
 
-	public Type visit (ReturnStatement s) throws SemanticException {
-    return new IntegerType();
+	public void visit (ReturnStatement s) throws SemanticException {
+    
   }
 
-	public Type visit (StringLiteral s) throws SemanticException {
-    return new IntegerType();
+	public void visit (StringLiteral s) throws SemanticException {
+    
   }
 
-	public Type visit (SubtractExpression e) throws SemanticException {
-    return new IntegerType();
+	public void visit (SubtractExpression e) throws SemanticException {
+    
   }
 
-	public Type visit (Type t) throws SemanticException {
-    return new IntegerType();
+	public void visit (Type t) throws SemanticException {
+    
   }
 
-	public Type visit (TypeNode t) throws SemanticException {
-    return new IntegerType();
+	public void visit (TypeNode t) throws SemanticException {
+    
   }
 
-	public Type visit (VariableAssignment s) throws SemanticException {
-    return new IntegerType();
+	public void visit (VariableAssignment s) throws SemanticException {
+    
   }
 
-	public Type visit (VariableDeclaration v) throws SemanticException {
-    return new IntegerType();
+	public void visit (VariableDeclaration v) throws SemanticException {
+    
   }
 
-	public Type visit (WhileStatement s) throws SemanticException {
-    return new IntegerType();
+	public void visit (WhileStatement s) throws SemanticException {
+    
   }
 
   

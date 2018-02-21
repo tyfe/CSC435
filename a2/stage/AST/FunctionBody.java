@@ -2,6 +2,7 @@ package AST;
 
 import AST.ASTNode;
 import AST.VariableDeclarationList;
+import Semantic.*;
 
 public class FunctionBody extends ASTNode {
 
@@ -15,5 +16,9 @@ public class FunctionBody extends ASTNode {
 
   public void accept(PrintVisitor v) {
     v.visit(this);
+  }
+
+  public void accept(TypeChecker t) throws SemanticException {
+    t.visit(this);
   }
 }

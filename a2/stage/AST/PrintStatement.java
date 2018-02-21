@@ -1,6 +1,7 @@
 package AST;
 
 import AST.*;
+import Semantic.*;
 
 public class PrintStatement extends Statement {
 
@@ -12,5 +13,9 @@ public class PrintStatement extends Statement {
 
   public void accept(PrintVisitor v) {
     v.visit(this);
+  }
+
+  public void accept(TypeChecker t) throws SemanticException {
+    t.visit(this);
   }
 }
