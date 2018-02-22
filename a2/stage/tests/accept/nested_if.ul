@@ -1,13 +1,14 @@
 void main() {
-    if (3 < 2) {
+  int test;
+  if (3 < 2) {
 
-        if (2 < 3) {
-            test = 123;
-        }
-
+    if (2 < 3) {
+      test = 123;
     }
 
-    else {
+  }
 
-    }
+  else {
+
+  }
 }

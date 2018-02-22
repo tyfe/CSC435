@@ -22,7 +22,16 @@ public class FunctionEnvironment {
     return flist.get(index);
   }
 
-  public boolean contains() {
+  public FunctionType lookup(String id) {
+    for(int i = 0; i < this.size(); ++i) {
+      FunctionType ft = this.elementAt(i);
+      if (ft.id.equals(id))
+        return ft;
+    }
+    return null;
+  }
+
+  public Boolean contains(FunctionType f) {
     return false;
   }
 }

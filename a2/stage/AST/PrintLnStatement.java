@@ -6,7 +6,7 @@ import Type.*;
 
 public class PrintLnStatement extends Statement {
 
-  Expression expr;
+  public Expression expr;
 
   public PrintLnStatement(int l, int o, Expression e) {
     super(l, o);

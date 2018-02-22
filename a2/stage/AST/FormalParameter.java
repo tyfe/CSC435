@@ -6,8 +6,8 @@ import Type.*;
 
 public class FormalParameter extends ASTNode {
 
-  TypeNode type;
-  Identifier name;
+  public TypeNode type;
+  public Identifier name;
 
   public FormalParameter(int l, int o, TypeNode tn, Identifier i) {
     super(l, o);

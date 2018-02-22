@@ -22,6 +22,15 @@ public class VariableEnvironment {
     return vlist.get(index);
   }
 
+  public VariableType lookup(String id) {
+    for(int i = 0; i < this.size(); ++i) {
+      VariableType vt = this.elementAt(i);
+      if (vt.id.equals(id))
+        return vt;
+    }
+    return null;
+  }
+
   public boolean contains(VariableType v) {
     for(int i = 0; i < this.size(); ++i) {
       VariableType current_var = this.elementAt(i);

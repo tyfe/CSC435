@@ -6,8 +6,8 @@ import Type.*;
 
 public class MultExpression extends Expression {
 
-  Expression expr1;
-  Expression expr2;
+  public Expression expr1;
+  public Expression expr2;
 
   public MultExpression(int l, int o, Expression e1, Expression e2) {
     super(l, o);

@@ -6,7 +6,7 @@ import Type.*;
 
 public class ExpressionStatement extends Statement {
 
-  Expression expr;
+  public Expression expr;
 
   public ExpressionStatement(int l, int o, Expression e) {
     super(l, o);

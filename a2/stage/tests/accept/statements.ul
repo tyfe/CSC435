@@ -1,8 +1,10 @@
 void main() {
+    string s2;
+    string [5] s3;
     int s;
     while(2 < 3) {
-        s = "test";
-        s[0] = "test";
+        s2 = "test";
+        s3[0] = "test";
     }
     print s;
     println s;
