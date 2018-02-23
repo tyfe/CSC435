@@ -71,13 +71,17 @@ public class TypeChecker {
 
   public Type visit(ArrayReference a) throws SemanticException {
     Type index = a.expr.accept(this);
-    ArrayType varType = (ArrayType)a.name.accept(this);
+    Type t = a.name.accept(this);
+
+    if(!(t instanceof ArrayType))
+      throw new SemanticException("Variable referenced as array but not declared as array.", a.lineNumber, a.offset);
+
 
     if(!index.equals(INTEGER)) {
       throw new SemanticException("Array index must be integer.", a.lineNumber, a.offset);
     }
 
-    return varType.subType;
+    return ((ArrayType)t).subType;
   }
 
   public Type visit(Block b) throws SemanticException {
@@ -124,6 +128,8 @@ public class TypeChecker {
     VariableType v = new VariableType(p.name.name, p.type.type);
     if(ve.contains(v))
       throw new SemanticException("Variable " + v.id + " already declared in scope.", p.lineNumber, p.offset);
+    if(v.type.equals(VOID))
+      throw new SemanticException("Variable " + v.id + " has invalid type, " + v.type + ".", p.lineNumber, p.offset);
     ve.add(v);
     return VOID;
   }
