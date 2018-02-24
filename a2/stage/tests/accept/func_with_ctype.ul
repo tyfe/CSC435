@@ -1,2 +1,6 @@
-int[65] main() {
+int[65] main2() {
+}
+
+void main() {
+  
 }

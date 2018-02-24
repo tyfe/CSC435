@@ -1,4 +1,4 @@
-int test(float test, char test2, string test3) {
+float test(float test, char test2, string test3) {
   return test;
 }
 

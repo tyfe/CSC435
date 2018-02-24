@@ -1,7 +1,15 @@
 void main () {
+  int n;
+  float abc123;
+  int [5] a;
+  int abc;
   if (n == 3) {
     abc123 * 5;
   } else {
-    123 + 123 * (456 - 1234123) * abc123 * a[abc*5] - main(123, abc123 * a[abc*5]);
+    123 + 123 * (456 - 1234123) * abc123 * a[abc*5] - test(123, abc123 * a[abc*5]);
   }
+}
+
+int test(int n, float p) {
+  return n;
 }

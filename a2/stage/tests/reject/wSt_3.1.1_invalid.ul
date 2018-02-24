@@ -1,6 +1,6 @@
 void main() {
     int n;
     if (n) {
-        n++;
+        n = n + 1;
     }
 }

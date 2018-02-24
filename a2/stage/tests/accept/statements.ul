@@ -9,5 +9,4 @@ void main() {
     print s;
     println s;
     return;
-    return s;
 }

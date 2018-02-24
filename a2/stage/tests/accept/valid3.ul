@@ -23,7 +23,9 @@ int foo (int x, float y, string z, char c, boolean a) {
 	print xx;
 	println x;
 
-	return aa;
+	return xx;
+}
 
-	return;
+void main() {
+	
 }
