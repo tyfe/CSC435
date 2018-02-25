@@ -1,5 +1,5 @@
 void main() {
-    println foo() + 1;
+    println foo();
 
 }
 
