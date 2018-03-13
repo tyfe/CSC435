@@ -1,0 +1,31 @@
+int foo (int x, float y, string z, char c, boolean a) {
+	string zz;
+	float  yy;
+	char   cc;
+	boolean aa;
+	int	xx;
+
+	while (x < 10) {
+		;
+	}
+
+	if (zz == "abc") {
+		;
+	}
+
+	if (yy < 2.3 ) {
+		;
+	}
+	else {
+		;
+	}
+
+	print xx;
+	println x;
+
+	return xx;
+}
+
+void main() {
+	
+}

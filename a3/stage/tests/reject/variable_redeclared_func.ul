@@ -1,0 +1,8 @@
+// tests if variable declared in function definition is shadowed by variable declared in function body
+
+void test(int test, int test) {
+  int test;
+}
+
+void main() {
+}
