@@ -16,7 +16,7 @@ public class ArrayIndexAssignment extends Instruction {
   }
 
   public String toString() {
-    return left + "[" + index + "] := " + right;
+    return left + "[" + index + "] := " + right + ";";
   }
 
 }

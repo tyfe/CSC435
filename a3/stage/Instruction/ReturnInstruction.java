@@ -16,8 +16,8 @@ public class ReturnInstruction extends Instruction {
 
   public String toString() {
     if(op != null)
-      return "RETURN " + op;
-    return "RETURN";
+      return "RETURN " + op + ";";
+    return "RETURN;";
   }
 
 }

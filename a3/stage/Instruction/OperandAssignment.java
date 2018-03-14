@@ -14,7 +14,7 @@ public class OperandAssignment extends Instruction {
   }
 
   public String toString() {
-    return left + " := " + right;
+    return left + " := " + right + ";";
   }
 
 }

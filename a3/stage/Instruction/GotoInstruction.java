@@ -11,7 +11,7 @@ public class GotoInstruction extends Instruction {
   }
 
   public String toString() {
-    return "GOTO " + label;
+    return "GOTO " + label + ";";
   }
 
 }

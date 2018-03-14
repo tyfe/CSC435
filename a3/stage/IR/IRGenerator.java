@@ -107,7 +107,7 @@ public class IRGenerator implements IRVisitor {
   }
 
 	public void visit (BooleanLiteral b) {
-    place.type = FLOAT;
+    place.type = BOOLEAN;
     ins.add(new ConstantAssignment(place, b.val));
 
   }
@@ -147,7 +147,7 @@ public class IRGenerator implements IRVisitor {
       parent = newTemp(left.type);
     }
 
-    parent.type = left.type;
+    parent.type = BOOLEAN;
     place = parent;
 
     ins.add(new BinaryOpAssignment(parent, left, right, BinaryOp.EQUALITY));
@@ -201,6 +201,10 @@ public class IRGenerator implements IRVisitor {
         out.print(" [L(\"" + v.identifier + "\")]" );
       }
       out.println(";");
+    }
+
+    if(ins.size() == 0 || !(ins.elementAt(ins.size()-1) instanceof ReturnInstruction)) {
+      ins.add(new ReturnInstruction());
     }
 
     for(int i = 0; i < ins.size(); ++i) {
@@ -322,7 +326,7 @@ public class IRGenerator implements IRVisitor {
       parent = newTemp(left.type);
     }
 
-    parent.type = left.type;
+    parent.type = BOOLEAN;
     place = parent;
 
     ins.add(new BinaryOpAssignment(parent, left, right, BinaryOp.LESSTHAN));

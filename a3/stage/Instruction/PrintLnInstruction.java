@@ -11,7 +11,7 @@ public class PrintLnInstruction extends Instruction {
   }
 
   public String toString() {
-    return "PRINTLN" + op.type.toShortString() + " " + op;
+    return "PRINTLN" + op.type.toShortString() + " " + op + ";";
   }
 
 }

@@ -18,9 +18,9 @@ public class UnaryOpAssignment extends Instruction {
   public String toString() {
     switch(operator) {
       case NEGATION:
-        return left + " := -" + right + ";";
+        return left + " := " + left.type.toShortString() + "- " + right + ";";
       case INVERSION:
-        return left + " := !" + right + ";";
+        return left + " := " + left.type.toShortString() + "! " + right + ";";
       case CONVERSION:
         return left + " := " + right.type.toShortString() + "2" + left.type.toShortString() + " " + right + ";";
       default:

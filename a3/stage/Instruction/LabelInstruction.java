@@ -11,7 +11,7 @@ public class LabelInstruction extends Instruction {
   }
 
   public String toString() {
-    return label.toString() + ":";
+    return label.toString() + ":;";
   }
 
 }

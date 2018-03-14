@@ -13,7 +13,7 @@ public class IfElseInstruction extends Instruction {
   }
 
   public String toString() {
-    return "IF " + op + " GOTO " + label;
+    return "IF " + op + " GOTO " + label + ";";
   }
 
 }

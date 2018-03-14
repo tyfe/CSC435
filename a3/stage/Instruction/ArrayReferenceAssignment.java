@@ -16,7 +16,7 @@ public class ArrayReferenceAssignment extends Instruction {
   }
 
   public String toString() {
-    return left + " := " + right + "[" + index + "]";
+    return left + " := " + right + "[" + index + "]" + ";";
   }
 
 }

@@ -32,7 +32,7 @@ public class CallInstruction extends Instruction {
       Temporary t = operands.get(i);
       s.append(t.toString());
     }
-    s.append(")");
+    s.append(");");
     return s.toString();
   }
 }

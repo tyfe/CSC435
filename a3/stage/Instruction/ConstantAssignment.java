@@ -46,15 +46,15 @@ public class ConstantAssignment extends Instruction {
 
   public String toString() {
     if(type instanceof IntegerType) {
-      return op + " := " + val_int;
+      return op + " := " + val_int + ";";
     } else if (type instanceof FloatType) {
-      return op + " := " + val_float;
+      return op + " := " + val_float + ";";
     } else if (type instanceof CharType) {
-      return op + " := '" + val_char + "'";
+      return op + " := '" + val_char + "'" + ";";
     } else if (type instanceof StringType) {
-      return op + " := \"" + val_str + "\"";
+      return op + " := \"" + val_str + "\"" + ";";
     } else if (type instanceof BooleanType) {
-      return op + " := " + val_bool.toString().toUpperCase();
+      return op + " := " + val_bool.toString().toUpperCase() + ";";
     }
     return "";
   }
