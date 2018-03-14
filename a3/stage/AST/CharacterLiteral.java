@@ -5,12 +5,16 @@ import Semantic.*;
 import Type.*;
 import IR.*;
 
-public class CharacterLiteral extends Expression {
-	Character val;
+public class CharacterLiteral extends Literal {
+	public Character val;
 
 	public CharacterLiteral (int l, int o, Character v) {
 		super(l, o);
 		val = v;
+	}
+
+	public String toString() {
+		return val.toString();
 	}
 
 	public void accept (PrintVisitor v) {

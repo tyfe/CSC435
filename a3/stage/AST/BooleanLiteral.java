@@ -5,12 +5,16 @@ import Semantic.*;
 import Type.*;
 import IR.*;
 
-public class BooleanLiteral extends Expression {
-	Boolean val;
+public class BooleanLiteral extends Literal {
+	public Boolean val;
 
 	public BooleanLiteral (int l, int o, Boolean v) {
 		super(l, o);
 		val = v;
+	}
+
+	public String toString() {
+		return val.toString();
 	}
 
 	public void accept (PrintVisitor v) {

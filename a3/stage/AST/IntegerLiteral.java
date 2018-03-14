@@ -6,12 +6,17 @@ import Type.*;
 import IR.*;
 
 public class IntegerLiteral extends Expression {
-	Integer val;
+	public Integer val;
 
 	public IntegerLiteral (int l, int o, Integer v) {
 		super(l, o);
 		val = v;
 	}
+
+	public String toString() {
+		return val.toString();
+	}
+
 
 	public void accept (PrintVisitor v) {
 		v.visit(this);

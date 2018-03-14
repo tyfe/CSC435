@@ -57,6 +57,7 @@ public class Compiler {
       t.visit(p);
     } catch (SemanticException e) {
       System.out.println(e);
+      return;
     }
 
     try {
