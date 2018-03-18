@@ -1,9 +1,9 @@
 float main2(int abc, float abc123) {
   int a123;
   int [5] a;
-  return 123 + 123 * (456 - 1234123) * abc123 * a[abc*5] - main2(123, abc123 * a[abc*5]);
+  return 123 + 123 * (456 - 1234123) * abc123 * a[abc*5 - 1];
 }
 
 void main() {
-
+  println main2(1, 1);
 }

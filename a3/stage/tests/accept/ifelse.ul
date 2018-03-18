@@ -4,9 +4,10 @@ void main () {
   int [5] a;
   int abc;
   if (n == 3) {
-    abc123 * 5;
+    println abc123 * 5;
   } else {
-    123 + 123 * (456 - 1234123) * abc123 * a[abc*5] - test(123, abc123 * a[abc*5]);
+    println 123 + 123 * (456 - 1234123) * abc123 * a[abc*5] - test(123, abc123 * a[abc*5]);
+    println test(2, 3);
   }
 }
 

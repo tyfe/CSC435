@@ -4,5 +4,5 @@ float test(float test, char test2, string test3) {
 
 void main() {
   // note that int is implicitly converted to a float
-  test(1, 's', "s");
+  println test(1, 's', "s");
 }

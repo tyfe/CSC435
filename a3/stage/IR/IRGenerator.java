@@ -16,6 +16,7 @@ public class IRGenerator implements IRVisitor {
   private InstructionList ins;
   private LabelGenerator lgen;
   private Temporary place;
+  private FunctionNode currentFunction;
 
   // constants
   private final FloatType FLOAT = new FloatType();
@@ -80,6 +81,23 @@ public class IRGenerator implements IRVisitor {
   }
 
 	public void visit (ArrayAssignment s) {
+    Temporary index = newTemp(null);
+    Temporary expr = newTemp(null);
+    Temporary var = vars.retrieve(s.name.name);
+    ArrayType at = (ArrayType)var.type;
+
+    place = index;
+    s.index.accept(this);
+    place = expr;
+    s.expr.accept(this);
+
+    if(at.subType.equals(FLOAT) && expr.type.equals(INTEGER)) {
+      Temporary t = newTemp(FLOAT);
+      ins.add(new UnaryOpAssignment(t, expr, UnaryOp.CONVERSION));
+      expr = t;
+    }
+
+    ins.add(new ArrayIndexAssignment(var, expr, index));
 
   }
 
@@ -87,12 +105,14 @@ public class IRGenerator implements IRVisitor {
     Temporary t = newTemp(null);
     Temporary parent = place;
     Temporary var = vars.retrieve(a.name.name);
+    ArrayType at;
     
     place = t;
     a.expr.accept(this);
     place = parent;
 
-    place.type = var.type;
+    at = (ArrayType)var.type;
+    place.type = at.subType;
 
     ins.add(new ArrayReferenceAssignment(place, var, t));
 
@@ -100,6 +120,7 @@ public class IRGenerator implements IRVisitor {
 
 	public void visit (Block b) {
     for(int i = 0; i < b.statementList.size(); ++i) {
+      place = null;
       Statement s = b.statementList.elementAt(i);
       s.accept(this);
     }
@@ -144,7 +165,7 @@ public class IRGenerator implements IRVisitor {
 
     // temp hack
     if(parent == null) {
-      parent = newTemp(left.type);
+      parent = newTemp(BOOLEAN);
     }
 
     parent.type = BOOLEAN;
@@ -173,6 +194,8 @@ public class IRGenerator implements IRVisitor {
     vars = new VariableTable();
     lgen = new LabelGenerator();
     ins = new InstructionList();
+
+    currentFunction = funcs.retrieve(f.fd.name.name);
 
     f.fd.accept(this);
     f.fb.accept(this);
@@ -222,15 +245,26 @@ public class IRGenerator implements IRVisitor {
     FunctionNode func = funcs.retrieve(f.name.name);
     for(int i = 0; i < f.expressionList.size(); ++i) {
       Expression e = f.expressionList.elementAt(i);
+      Type ptype = func.getParam(i);
       place = newTemp(null);
       e.accept(this);
+      if(place.type.equals(INTEGER) && ptype.equals(FLOAT)) {
+        Temporary t = newTemp(ptype);
+        ins.add(new UnaryOpAssignment(t, place, UnaryOp.CONVERSION));
+        place = t;
+      }
       params.add(place);
     }
     place = parent;
-    if(place != null) place.type = func.returnType;
+      
     if(func.returnType.equals(VOID)) {
       ins.add(new CallInstruction(func, params));
     } else {
+      if(place != null) {
+        place.type = func.returnType;
+      } else {
+        parent = newTemp(func.returnType);
+      }
       ins.add(new CallInstruction(parent, func, params));
     }
     
@@ -239,8 +273,13 @@ public class IRGenerator implements IRVisitor {
 	public void visit (FunctionDeclaration f) {
     out.print("FUNC " + f.name.name + "(");
 
-    for(int i = 0; i < f.parameterList.size(); ++i) {
+    for(int i = 0; i < f.parameterList.size() - 1; ++i) {
       FormalParameter fp = f.parameterList.elementAt(i);
+      fp.accept(this);
+      out.print(" ");
+    }
+    if(f.parameterList.size() >= 1) {
+      FormalParameter fp = f.parameterList.elementAt(f.parameterList.size() - 1);
       fp.accept(this);
     }
 
@@ -271,7 +310,6 @@ public class IRGenerator implements IRVisitor {
     place = t;
 
     i.expr.accept(this);
-
     t = newTemp(place.type);
     ins.add(new UnaryOpAssignment(t, place, UnaryOp.INVERSION));
 
@@ -408,6 +446,11 @@ public class IRGenerator implements IRVisitor {
     Temporary t = newTemp(null);
     place = t;
     s.expr.accept(this);
+    if(place.type.equals(INTEGER) && currentFunction.returnType.equals(FLOAT)) {
+      Temporary rt = newTemp(FLOAT);
+      ins.add(new UnaryOpAssignment(rt, place, UnaryOp.CONVERSION));
+      place = rt;
+    }
     ins.add(new ReturnInstruction(place));
   }
 

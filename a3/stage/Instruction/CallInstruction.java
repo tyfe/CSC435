@@ -28,8 +28,13 @@ public class CallInstruction extends Instruction {
       s.append(result + " := ");
     }
     s.append("CALL " + member.id + "(");
-    for(int i = 0; i < operands.size(); ++i) {
+    for(int i = 0; i < operands.size() - 1; ++i) {
       Temporary t = operands.get(i);
+      s.append(t.toString());
+      s.append(" ");
+    }
+    if (operands.size() >= 1) {
+      Temporary t = operands.get(operands.size() - 1);
       s.append(t.toString());
     }
     s.append(");");

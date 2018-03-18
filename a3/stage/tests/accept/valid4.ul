@@ -8,6 +8,7 @@ void main () {
 	a[1] = 2;
 
 	a[3] = a[4] + a[0] * a[1];
+	println(a[3]);
 }
 
 int bar ( int[5] f ) {

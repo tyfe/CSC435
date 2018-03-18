@@ -17,7 +17,7 @@ public class NewArrayAssignment extends Instruction {
   }
 
   public String toString() {
-    return op + " := NEWARRAY (" + type.toShortString() + ") " + length + ";";
+    return op + " := NEWARRAY" + type.toShortString() + " " + length + ";";
   }
 
 }

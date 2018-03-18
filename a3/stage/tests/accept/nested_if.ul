@@ -1,9 +1,10 @@
 void main() {
   int test;
-  if (3 < 2) {
+  if (3 < 22) {
 
     if (2 < 3) {
       test = 123;
+      println test;
     }
 
   }

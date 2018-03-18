@@ -3,5 +3,5 @@ float test() {
 }
 
 void main() {
-
+  println test();
 }
