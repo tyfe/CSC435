@@ -17,6 +17,8 @@ public class IRGenerator implements IRVisitor {
   private LabelGenerator lgen;
   private Temporary place;
   private FunctionNode currentFunction;
+  
+  public List<FunctionNode> functionList;
 
   // constants
   private final FloatType FLOAT = new FloatType();
@@ -28,6 +30,7 @@ public class IRGenerator implements IRVisitor {
 
   public IRGenerator(PrintStream p) {
     funcs = new FunctionTable();
+    functionList = new ArrayList<>();
     out = p;
   }
 
@@ -65,7 +68,6 @@ public class IRGenerator implements IRVisitor {
       }
     }
 
-    // temp hack
     if(parent == null) {
       parent = newTemp(left.type);
     }
@@ -163,7 +165,6 @@ public class IRGenerator implements IRVisitor {
       }
     }
 
-    // temp hack
     if(parent == null) {
       parent = newTemp(BOOLEAN);
     }
@@ -196,6 +197,9 @@ public class IRGenerator implements IRVisitor {
     ins = new InstructionList();
 
     currentFunction = funcs.retrieve(f.fd.name.name);
+
+    functionList.add(currentFunction);
+    currentFunction.instructions = ins;
 
     f.fd.accept(this);
     f.fb.accept(this);
@@ -359,7 +363,6 @@ public class IRGenerator implements IRVisitor {
       }
     }
 
-    // temp hack
     if(parent == null) {
       parent = newTemp(left.type);
     }
@@ -395,7 +398,6 @@ public class IRGenerator implements IRVisitor {
       }
     }
 
-    // temp hack
     if(parent == null) {
       parent = newTemp(left.type);
     }
@@ -484,7 +486,6 @@ public class IRGenerator implements IRVisitor {
       }
     }
 
-    // temp hack
     if(parent == null) {
       parent = newTemp(left.type);
     }

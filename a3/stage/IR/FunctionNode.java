@@ -8,6 +8,7 @@ public class FunctionNode {
   
   public String id;
   public Type returnType;
+  public InstructionList instructions;
   private List<Type> params;
 
   public FunctionNode(FunctionDeclaration f) {
