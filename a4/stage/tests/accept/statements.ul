@@ -1,0 +1,14 @@
+void main() {
+    string s2;
+    string [5] s3;
+    int s;
+    s = 0;
+    while(s < 3) {
+        s2 = "test";
+        s3[0] = "test";
+        s = s + 1;
+    }
+    print s;
+    println s;
+    return;
+}

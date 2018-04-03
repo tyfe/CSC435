@@ -1,0 +1,4 @@
+void main() {
+    int t;
+    t = t < (5 * * 6);
+}

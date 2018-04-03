@@ -1,0 +1,18 @@
+void main () {
+	float[5] a;
+	int    b;
+
+	b = 73;
+	
+	a[0] = 1.2;
+	a[1] = 2;
+
+	a[3] = a[4] + a[0] * a[1];
+	println(a[3]);
+}
+
+int bar ( int[5] f ) {
+
+	return f[3];
+}
+

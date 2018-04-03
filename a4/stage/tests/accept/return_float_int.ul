@@ -1,0 +1,7 @@
+float test() {
+  return 5;
+}
+
+void main() {
+  println test();
+}

@@ -1,0 +1,8 @@
+float test(float test, char test2, string test3) {
+  return test;
+}
+
+void main() {
+  // note that int is implicitly converted to a float
+  println test(1, 's', "s");
+}

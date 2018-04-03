@@ -1,0 +1,12 @@
+int test(int x, int y) {
+  return 3;
+}
+
+void main() {
+  int y;
+  float x;
+  int [5] z;
+  y = 0;
+  x = 3;
+  println 1.1 + 2 + test(y, y) * (x - 3);
+}

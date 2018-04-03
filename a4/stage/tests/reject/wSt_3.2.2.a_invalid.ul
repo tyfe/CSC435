@@ -1,0 +1,6 @@
+void main() {
+    float a;
+    float b;
+    int c;
+    c = b + a;    
+}
