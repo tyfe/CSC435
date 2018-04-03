@@ -2,6 +2,7 @@ package Instruction;
 
 import IR.*;
 import AST.*;
+import Codegen.*;
 
 public class ArrayIndexAssignment extends Instruction {
 
@@ -17,6 +18,10 @@ public class ArrayIndexAssignment extends Instruction {
 
   public String toString() {
     return left + "[" + index + "] := " + right + ";";
+  }
+
+  public void accept(CodegenVisitor v) {
+    v.visit(this);
   }
 
 }

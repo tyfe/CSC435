@@ -3,6 +3,7 @@ package Instruction;
 import IR.*;
 import AST.*;
 import Type.*;
+import Codegen.*;
 
 public class NewArrayAssignment extends Instruction {
 
@@ -18,6 +19,10 @@ public class NewArrayAssignment extends Instruction {
 
   public String toString() {
     return op + " := NEWARRAY" + type.toShortString() + " " + length + ";";
+  }
+
+  public void accept(CodegenVisitor v) {
+    v.visit(this);
   }
 
 }

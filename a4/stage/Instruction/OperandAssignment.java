@@ -2,6 +2,7 @@ package Instruction;
 
 import IR.*;
 import AST.*;
+import Codegen.*;
 
 public class OperandAssignment extends Instruction {
 
@@ -15,6 +16,10 @@ public class OperandAssignment extends Instruction {
 
   public String toString() {
     return left + " := " + right + ";";
+  }
+
+  public void accept(CodegenVisitor v) {
+    v.visit(this);
   }
 
 }

@@ -3,6 +3,7 @@ package Instruction;
 import IR.*;
 import AST.*;
 import Type.*;
+import Codegen.*;
 
 public class ConstantAssignment extends Instruction {
 
@@ -57,6 +58,10 @@ public class ConstantAssignment extends Instruction {
       return op + " := " + val_bool.toString().toUpperCase() + ";";
     }
     return "";
+  }
+
+  public void accept(CodegenVisitor v) {
+    v.visit(this);
   }
 
 }

@@ -1,6 +1,7 @@
 package Instruction;
 
 import IR.*;
+import Codegen.*;
 
 public class PrintInstruction extends Instruction {
 
@@ -12,6 +13,10 @@ public class PrintInstruction extends Instruction {
 
   public String toString() {
     return "PRINT" + op.type.toShortString() + " " + op + ";";
+  }
+
+  public void accept(CodegenVisitor v) {
+    v.visit(this);
   }
 
 }

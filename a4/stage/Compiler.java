@@ -11,17 +11,20 @@ import org.antlr.runtime.tree.*;
 import AST.*;
 import IR.*;
 import Semantic.*;
+import Codegen.*;
 import java.io.*;
+import util.NullPrintStream;
 
 public class Compiler {
   public static void main(String[] args) throws Exception {
     ANTLRInputStream input;
-    PrintStream out = System.out;
+    PrintStream out = new NullPrintStream();
 
     // use compiler flags to determine what visitor to use?
     // PrintVisitor v = new PrintVisitor();
     TypeChecker t = new TypeChecker();
     IRGenerator ir = new IRGenerator(out);
+    CodegenVisitor cg = new CodegenVisitor(System.out);
     Program p = null;
     FileInputStream f;
 
@@ -71,7 +74,14 @@ public class Compiler {
       return;
     }
     
-  
+    try {
+      cg.visit(ir);
+    } catch (Exception e) {
+      System.out.println(e);
+      e.printStackTrace();
+      return;
+    }
+
   }
 
 }

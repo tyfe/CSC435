@@ -1,6 +1,7 @@
 package Instruction;
 
 import IR.*;
+import Codegen.*;
 
 public class ReturnInstruction extends Instruction {
 
@@ -18,6 +19,10 @@ public class ReturnInstruction extends Instruction {
     if(op != null)
       return "RETURN " + op + ";";
     return "RETURN;";
+  }
+
+  public void accept(CodegenVisitor v) {
+    v.visit(this);
   }
 
 }

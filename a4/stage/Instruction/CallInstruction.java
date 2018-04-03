@@ -3,6 +3,7 @@ package Instruction;
 import IR.*;
 import java.lang.StringBuilder;
 import java.util.*;
+import Codegen.*;
 
 public class CallInstruction extends Instruction {
 
@@ -39,5 +40,9 @@ public class CallInstruction extends Instruction {
     }
     s.append(");");
     return s.toString();
+  }
+
+  public void accept(CodegenVisitor v) {
+    v.visit(this);
   }
 }

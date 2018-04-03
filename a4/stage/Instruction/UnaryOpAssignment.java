@@ -2,6 +2,7 @@ package Instruction;
 
 import IR.*;
 import AST.*;
+import Codegen.*;
 
 public class UnaryOpAssignment extends Instruction {
 
@@ -26,6 +27,10 @@ public class UnaryOpAssignment extends Instruction {
       default:
         return "";
     }
+  }
+
+  public void accept(CodegenVisitor v) {
+    v.visit(this);
   }
 
 }

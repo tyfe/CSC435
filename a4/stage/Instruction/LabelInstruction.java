@@ -1,6 +1,7 @@
 package Instruction;
 
 import IR.*;
+import Codegen.*;
 
 public class LabelInstruction extends Instruction {
 
@@ -12,6 +13,10 @@ public class LabelInstruction extends Instruction {
 
   public String toString() {
     return label.toString() + ":;";
+  }
+
+  public void accept(CodegenVisitor v) {
+    v.visit(this);
   }
 
 }

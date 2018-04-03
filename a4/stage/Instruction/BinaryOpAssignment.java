@@ -2,6 +2,7 @@ package Instruction;
 
 import IR.*;
 import AST.*;
+import Codegen.*;
 
 public class BinaryOpAssignment extends Instruction {
 
@@ -42,6 +43,10 @@ public class BinaryOpAssignment extends Instruction {
       default:
         return "";
     }
+  }
+
+  public void accept(CodegenVisitor v) {
+    v.visit(this);
   }
 
 }
