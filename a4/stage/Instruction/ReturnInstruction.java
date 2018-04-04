@@ -5,7 +5,7 @@ import Codegen.*;
 
 public class ReturnInstruction extends Instruction {
 
-  Temporary op;
+  public Temporary op;
 
   public ReturnInstruction() {
     op = null;

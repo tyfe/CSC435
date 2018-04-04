@@ -1,6 +1,7 @@
 void main()
 {
 	int[3] x;
+	string[5] y;
 	int i;
 
 	x[0] = 1;
@@ -8,9 +9,12 @@ void main()
 	x[2] = 3;
 	i = 0;
 
+	y[0] = "hello";
+
 	while (i < 3)
 	{
 		println x[i];
+		println y[0];
 		i = i + 1;
 	}
 }

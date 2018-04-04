@@ -7,13 +7,13 @@ import Codegen.*;
 
 public class ConstantAssignment extends Instruction {
 
-  Temporary op;
-  Type type;
-  Integer val_int;
-  Float val_float;
-  Character val_char;
-  String val_str;
-  Boolean val_bool;
+  public Temporary op;
+  public Type type;
+  public Integer val_int;
+  public  Float val_float;
+  public Character val_char;
+  public String val_str;
+  public Boolean val_bool;
 
   public ConstantAssignment(Temporary t, Integer val) {
     op = t;

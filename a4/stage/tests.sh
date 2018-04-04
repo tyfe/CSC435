@@ -11,8 +11,7 @@ for file in ./tests/accept/*
 do
     name=$(basename "$file" ".ul")
     echo "Testing file $file"
-    java Compiler "$file" > "output/ir/$name.ir"
-    ../libs/codegen --file="output/ir/$name.ir" > "output/class/$name.j"
+    java Compiler "$file" > "output/class/$name.j"
     cd output/class
     java jasmin.Main "$name.j"
     echo "Output created in output/class/$name.class\n"

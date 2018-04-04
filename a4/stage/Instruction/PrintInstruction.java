@@ -5,7 +5,7 @@ import Codegen.*;
 
 public class PrintInstruction extends Instruction {
 
-  Temporary op;
+  public Temporary op;
 
   public PrintInstruction(Temporary t) {
     op = t;

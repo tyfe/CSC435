@@ -200,6 +200,7 @@ public class IRGenerator implements IRVisitor {
 
     functionList.add(currentFunction);
     currentFunction.instructions = ins;
+    currentFunction.vars = vars;
 
     f.fd.accept(this);
     f.fb.accept(this);

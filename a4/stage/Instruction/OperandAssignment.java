@@ -6,8 +6,8 @@ import Codegen.*;
 
 public class OperandAssignment extends Instruction {
 
-  Temporary left;
-  Temporary right;
+  public Temporary left;
+  public Temporary right;
 
   public OperandAssignment(Temporary left, Temporary right) {
     this.left = left;

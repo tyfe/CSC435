@@ -9,7 +9,8 @@ public class FunctionNode {
   public String id;
   public Type returnType;
   public InstructionList instructions;
-  private List<Type> params;
+  public List<Type> params;
+  public VariableTable vars;
 
   public FunctionNode(FunctionDeclaration f) {
     id = f.name.name;

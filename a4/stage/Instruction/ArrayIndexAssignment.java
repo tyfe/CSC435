@@ -6,9 +6,9 @@ import Codegen.*;
 
 public class ArrayIndexAssignment extends Instruction {
 
-  Temporary left;
-  Temporary right;
-  Temporary index;
+  public Temporary left;
+  public Temporary right;
+  public Temporary index;
 
   public ArrayIndexAssignment(Temporary left, Temporary right, Temporary index) {
     this.left = left;

@@ -6,10 +6,10 @@ import Codegen.*;
 
 public class BinaryOpAssignment extends Instruction {
 
-  Temporary result;
-  Temporary left;
-  Temporary right;
-  BinaryOp operator;
+  public Temporary result;
+  public Temporary left;
+  public Temporary right;
+  public BinaryOp operator;
 
   public BinaryOpAssignment(Temporary result, Temporary left, Temporary right, BinaryOp operator) {
     this.result = result;

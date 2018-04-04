@@ -20,13 +20,15 @@ public class Compiler {
     ANTLRInputStream input;
     PrintStream out = new NullPrintStream();
 
-    // use compiler flags to determine what visitor to use?
-    // PrintVisitor v = new PrintVisitor();
     TypeChecker t = new TypeChecker();
     IRGenerator ir = new IRGenerator(out);
-    CodegenVisitor cg = new CodegenVisitor(System.out);
     Program p = null;
     FileInputStream f;
+
+    String classname = args[0].substring(0, args[0].length() - 3);
+    classname = classname.substring(classname.lastIndexOf('/')+1, classname.length());
+
+    CodegenVisitor cg = new CodegenVisitor(System.out, classname);
 
     if (args.length == 0) {
       System.out.println("Usage: Test filename.ul");
@@ -64,8 +66,6 @@ public class Compiler {
     }
 
     try {
-      String classname = args[0].substring(0, args[0].length() - 3);
-      classname = classname.substring(classname.lastIndexOf('/')+1, classname.length());
       out.println("PROG " + classname);
       ir.visit(p);
     } catch (Exception e) {

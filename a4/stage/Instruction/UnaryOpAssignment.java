@@ -6,9 +6,9 @@ import Codegen.*;
 
 public class UnaryOpAssignment extends Instruction {
 
-  Temporary left;
-  Temporary right;
-  UnaryOp operator;
+  public Temporary left;
+  public Temporary right;
+  public UnaryOp operator;
 
   public UnaryOpAssignment(Temporary left, Temporary right, UnaryOp operator) {
     this.left = left;

@@ -5,8 +5,8 @@ import Codegen.*;
 
 public class IfElseInstruction extends Instruction {
 
-  Temporary op;
-  Label label;
+  public Temporary op;
+  public Label label;
 
   public IfElseInstruction(Temporary t, Label l) {
     op = t;

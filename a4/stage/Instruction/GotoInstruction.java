@@ -5,7 +5,7 @@ import Codegen.*;
 
 public class GotoInstruction extends Instruction {
 
-  Label label;
+  public Label label;
 
   public GotoInstruction(Label l) {
     label = l;

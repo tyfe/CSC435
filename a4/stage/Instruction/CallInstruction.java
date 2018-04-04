@@ -7,9 +7,9 @@ import Codegen.*;
 
 public class CallInstruction extends Instruction {
 
-  Temporary result;
-  FunctionNode member;
-  List<Temporary> operands;
+  public Temporary result;
+  public FunctionNode member;
+  public List<Temporary> operands;
 
   public CallInstruction(Temporary result, FunctionNode member, List<Temporary> operands) {
     this.result = result;

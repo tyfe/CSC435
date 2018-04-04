@@ -7,9 +7,9 @@ import Codegen.*;
 
 public class NewArrayAssignment extends Instruction {
 
-  Temporary op;
-  int length;
-  Type type;
+  public Temporary op;
+  public int length;
+  public Type type;
 
   public NewArrayAssignment(Temporary t, Type type, int l) {
     op = t;
